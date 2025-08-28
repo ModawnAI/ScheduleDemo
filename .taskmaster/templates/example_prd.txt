@@ -1,0 +1,325 @@
+Context
+Overview
+This document outlines the requirements for a high-fidelity web application demo of the Integrated Scheduling & Dynamic Routing Module. This demo solves the critical business problem of inefficient, manual crew scheduling in the landscaping and field service industries. It is designed for Operations Managers and Branch Managers, showcasing a powerful, automated system that replaces outdated paper or Excel-based methods. The value lies in demonstrating a clear path to reducing non-billable drive time, optimizing labor costs, and providing a simple, modern tool to bridge the generational skill gap in operational management.
+
+Core Features
+Strategic Schedule Generator (Yearly/Monthly View)
+
+What it does: Displays a high-level, color-coded calendar showing all recurring service visits for an entire year, generated from mock contract data. Users can switch to a monthly view for more detail.
+
+Why it's important: It visualizes the "macro-plan," demonstrating how the system automatically fulfills contractual obligations before any daily optimization occurs.
+
+How it works: The app will load a pre-defined set of dummy contracts and crews. It will then populate a calendar UI, distributing jobs (e.g., "4 mows in Sept") evenly across the month according to pre-set rules.
+
+Daily "Mission Control" Dashboard (Route Optimization View)
+
+What it does: Presents an interactive, map-based dashboard for a specific day. It shows multiple crews, each with an optimized multi-stop route visualized on the map, and a corresponding timeline of jobs.
+
+Why it's important: This is the centerpiece of the demo. It directly showcases the solution to the core problem of inefficient daily routing for smaller jobs, making the value proposition immediately obvious.
+
+How it works: When a user selects a day from the strategic calendar, the app will display a pre-calculated "optimized" route using dummy job tickets. The route will be drawn on a map (e.g., using Mapbox or Leaflet), and job cards will be arranged in a logical sequence.
+
+Interactive Manager Override
+
+What it does: Allows the user to drag and drop a job from one crew's schedule to another or re-order jobs within a single crew's timeline.
+
+Why it's important: It demonstrates the flexibility of the system, reassuring managers that they retain final control to handle real-world exceptions.
+
+How it works: Using a library like Framer Motion, job cards will be interactive. When a user drags a job, the map will dynamically update the route polyline and the UI will recalculate metrics like "Total Drive Time."
+
+Intelligent Weather Flagging
+
+What it does: Displays a "Weather Alert" icon (e.g., a rain cloud Lucide icon) next to jobs on the daily dashboard that are flagged due to a mock weather forecast (e.g., "Rain expected after 2 PM").
+
+Why it's important: It shows the system's proactive, data-driven intelligence, moving beyond simple scheduling to smart operational planning.
+
+How it works: The demo will use a hardcoded "forecast" for the selected demo day. The UI will conditionally render an alert icon and tooltip on jobs scheduled during the "bad weather" window.
+
+User Experience
+User Persona: Dave, an Operations Manager (55 years old). He is experienced but not tech-savvy. He's skeptical of new systems and currently uses a complex spreadsheet. He needs to see a clear, simple, and visual interface that he can trust and easily manipulate.
+
+Key User Flow:
+
+Login: User lands on the main dashboard.
+
+Yearly View: Sees the full-year strategic schedule, getting a sense of the big picture.
+
+Select Month/Day: Clicks on "September" to zoom into the monthly view, then clicks on a specific day (e.g., "Tuesday, Sept 16th") to load the Mission Control dashboard.
+
+Analyze Routes: Views the optimized routes for "Crew A" and "Crew B" on the map. He checks the estimated drive time and billable hours displayed in a summary panel.
+
+Manual Override: Notices a job for a high-priority client is scheduled late. He drags that job to the beginning of the crew's day. The map and metrics instantly update.
+
+Acknowledge Weather: Sees a weather alert on an afternoon job. He drags the job to another crew's schedule that finishes earlier in the day.
+
+Dispatch: Clicks a "Dispatch Schedules" button, which triggers a success notification, completing the demo flow.
+
+UI/UX Considerations:
+
+Clarity and Simplicity: Use large fonts, high-contrast colors, and intuitive icons (Lucide). Avoid clutter.
+
+Visual Hierarchy: The map should be the primary focus of the daily view. Key metrics (Drive Time, Billable Hours) should be prominent.
+
+Fluid Motion: Use Framer Motion for smooth transitions and drag-and-drop interactions to make the app feel modern and responsive.
+
+Component-Based Design: Leverage Shadcn UI components for consistency and a professional look (e.g., Buttons, Cards, Dialogs, Calendar).
+
+PRD
+Technical Architecture
+System Components:
+
+Frontend: Next.js (App Router)
+
+UI: Tailwind CSS for styling, Shadcn UI for pre-built components, Radix UI for accessibility primitives.
+
+Interaction: Framer Motion for animations and drag-and-drop.
+
+Icons: Lucide React.
+
+Mock Backend: All data will be hardcoded in JSON files or TypeScript objects within the Next.js application. No live database is needed for the demo.
+
+Data Models (Dummy Data):
+
+Contract: { id, clientName, services: [{ serviceType, frequency, month }] }
+
+Crew: { id, name, specialization, members }
+
+JobTicket: { id, clientId, address, lat, long, task, estimatedHours, requiredEquipment, requiredMaterials }
+
+DailySchedule: { date, crewSchedules: [{ crewId, route: [jobTicketId], metrics: { driveTime, billableHours } }] }
+
+APIs and Integrations:
+
+Mapping: A client-side mapping library like react-map-gl (for Mapbox) or react-leaflet will be used to render the map and routes.
+
+Weather API: This will be simulated. A simple function will return a mock forecast for any given day (e.g., getWeather(date) returns { condition: 'Rain', time: '14:00' }).
+
+Development Roadmap
+Phase 1: Foundation & Static Display (MVP)
+
+UI Shell: Build the main application layout using Next.js, Shadcn, and Tailwind, including the sidebar, header, and main content area.
+
+Data Models: Create the TypeScript types and dummy JSON files for contracts, crews, and job tickets.
+
+Strategic Calendar View: Implement the yearly/monthly calendar view. Populate it with static, pre-calculated data from the dummy contracts. Make it clickable but without linking to the daily view yet.
+
+Static Daily Dashboard: Build the UI for the "Mission Control" view. Hardcode the display of two crews with their routes on the map and their job timelines. The view will not be interactive at this stage.
+
+Phase 2: Interactivity & Core Logic
+
+Routing Logic: Connect the calendar to the daily dashboard. Clicking a day should now load the correct (still hardcoded) daily schedule.
+
+Drag-and-Drop Jobs: Implement the drag-and-drop functionality for job cards between crews and within a single crew's timeline.
+
+Dynamic Map Updates: When a job is moved, trigger a recalculation and re-render of the route polyline on the map.
+
+Metric Calculation: Implement the client-side logic to update the "Drive Time" and "Billable Hours" metrics when the schedule is changed.
+
+Weather Flagging: Integrate the mock weather API to display alert icons on the relevant jobs.
+
+Phase 3: Polishing & Final Touches (Future Enhancements)
+
+Animations: Add subtle animations with Framer Motion to enhance the user experience (e.g., page transitions, modal pop-ups).
+
+Customer Schedule View: Build a simple modal that appears when you click a "Preview Customer Schedule" button, showing a clean, non-editable view of a single client's services for the month.
+
+Responsive Design: Ensure the layout is usable on tablet-sized screens.
+
+Logical Dependency Chain
+Setup: Initialize Next.js project with Tailwind and Shadcn.
+
+Component Library: Build/install core Shadcn components (Button, Card, Calendar).
+
+Data First: Define and create all dummy data structures (JSON/TS).
+
+Build Static UI: Create the non-interactive Yearly Calendar and Daily Dashboard components. This provides an immediate visual target.
+
+Integrate Mapping: Add the map component to the Daily Dashboard and draw static routes. This is a key visual milestone.
+
+Connect Views: Implement the logic to navigate from the Calendar to the corresponding Daily Dashboard.
+
+Implement Interactivity: Layer on the drag-and-drop functionality (Framer Motion). This is the most complex part and depends on all previous steps.
+
+Finalize Logic: Add the dynamic metric calculations and weather alerts.
+
+Risks and Mitigations
+Risk: The "optimization" logic could become a time sink.
+
+Mitigation: Do not build a real algorithm for the demo. The routes will be pre-determined and hardcoded. The "re-optimization" on drag-and-drop will be a simple simulation (e.g., add a fixed 15 minutes to drive time). The goal is to demo the concept, not build the IP.
+
+Risk: Defining the MVP scope too broadly.
+
+Mitigation: Strictly adhere to the Phase 1 and 2 roadmap. Features like user authentication, database integration, or a real weather API are explicitly out of scope for this demo.
+
+Risk: Over-complicating the UI.
+
+Mitigation: Adhere strictly to the user persona. Design for clarity and simplicity. Use Shadcn's well-designed components as a baseline and avoid custom complexity.
+
+Appendix
+Technical Specifications:
+
+The map visualization should use vector tiles for smooth performance.
+
+All state management can be handled with React's native useState and useContext hooks; a complex state management library like Redux is unnecessary.
+
+Research Findings: The target user values control and simplicity. The demo must empower them, not make them feel replaced. The drag-and-drop override is therefore a non-negotiable feature.
+
+
+I'll examine the project setup to understand how PostCSS, Tailwind, and shadcn/ui are configured. Let me read the relevant configuration files to give you the exact setup details.
+
+[5 tools called]
+
+Let me also check the utils file to see how the class merging is set up:
+
+[1 tool called]
+
+Based on my examination of the project files, here's exactly how PostCSS, Tailwind CSS, and shadcn/ui are set up in this project:
+
+## PostCSS Configuration
+
+**File: `postcss.config.js`**
+```javascript
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+**Dependencies in `package.json`:**
+```json
+"devDependencies": {
+  "autoprefixer": "^10.0.1",
+  "postcss": "^8"
+}
+```
+
+## Tailwind CSS Configuration
+
+**File: `tailwind.config.ts`**
+- Uses TypeScript configuration
+- Dark mode enabled with class strategy: `darkMode: ["class"]`
+- Content paths include: `./pages/**/*.{ts,tsx}`, `./components/**/*.{ts,tsx}`, `./app/**/*.{ts,tsx}`, `./src/**/*.{ts,tsx}`
+- No prefix used
+- Extended theme with:
+  - Container centered with 2rem padding, max-width 1400px for 2xl screens
+  - CSS variables for all colors (shadcn/ui pattern)
+  - Custom border radius using CSS variables
+  - Font families with CSS variables
+  - Accordion animations for Radix UI
+  - Chart colors (1-5)
+  - Sidebar color system
+
+**Dependencies in `package.json`:**
+```json
+"devDependencies": {
+  "tailwindcss": "^3.4.1"
+},
+"dependencies": {
+  "tailwindcss-animate": "^1.0.7"
+}
+```
+
+**CSS Import in `app/globals.css`:**
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## shadcn/ui Configuration
+
+**File: `components.json`**
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
+}
+```
+
+**Key shadcn/ui Dependencies:**
+```json
+"dependencies": {
+  "@radix-ui/react-avatar": "^1.0.4",
+  "@radix-ui/react-dialog": "^1.0.5",
+  "@radix-ui/react-dropdown-menu": "^2.0.6",
+  "@radix-ui/react-label": "^2.0.2",
+  "@radix-ui/react-progress": "^1.0.3",
+  "@radix-ui/react-select": "^2.0.0",
+  "@radix-ui/react-separator": "^1.0.3",
+  "@radix-ui/react-slider": "^1.1.2",
+  "@radix-ui/react-slot": "^1.0.2",
+  "@radix-ui/react-switch": "^1.0.3",
+  "@radix-ui/react-tabs": "^1.0.4",
+  "@radix-ui/react-tooltip": "^1.0.7",
+  "class-variance-authority": "^0.7.1",
+  "clsx": "^2.1.1",
+  "lucide-react": "^0.400.0",
+  "tailwind-merge": "^2.6.0"
+}
+```
+
+## CSS Variables & Theme System
+
+**Custom Color Scheme in `app/globals.css`:**
+- Uses CSS variables for theming with light and dark mode support
+- Custom purple/lavender color palette:
+  - Primary: `#8a79ab` (purple)
+  - Secondary: `#dfd9ec` (light purple)
+  - Accent: `#e6a5b8` (pink)
+  - Background: `#f8f7fa` (very light purple)
+- Custom fonts: Geist and Noto Sans KR from Google Fonts
+- Custom shadows and spacing variables
+- Sidebar-specific color system
+
+## Utility Functions
+
+**File: `lib/utils.ts`**
+```typescript
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+## Summary for Another Project
+
+To replicate this setup in another project:
+
+1. **Install dependencies:**
+   ```bash
+   npm install tailwindcss postcss autoprefixer tailwindcss-animate
+   npm install @radix-ui/react-* class-variance-authority clsx tailwind-merge lucide-react
+   ```
+
+2. **Create `postcss.config.js`** with tailwindcss and autoprefixer plugins
+
+3. **Create `tailwind.config.ts`** with CSS variables for colors, dark mode class strategy, and tailwindcss-animate plugin
+
+4. **Create `components.json`** for shadcn/ui with "new-york" style, CSS variables enabled, and proper aliases
+
+5. **Set up `globals.css`** with Tailwind directives, CSS variables for light/dark themes, and custom font imports
+
+6. **Create `lib/utils.ts`** with the `cn` function for class merging
+
+This setup provides a complete shadcn/ui system with custom theming, dark mode support, and proper TypeScript configuration.

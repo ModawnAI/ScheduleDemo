@@ -1,0 +1,67 @@
+# Task ID: 1
+# Title: Initialize Next.js Project with Core Dependencies
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Set up the foundational Next.js application with App Router and install all required dependencies including Tailwind CSS, Shadcn UI, Framer Motion, and Lucide React with complete styling setup protocol
+# Details:
+Create new Next.js project using 'npx create-next-app@latest' with TypeScript and App Router. Follow the complete styling setup protocol including PostCSS configuration, TypeScript-based Tailwind config with dark mode support, shadcn/ui configuration with 'new-york' style, CSS variables setup, and utility functions. Install all required dependencies: tailwindcss, postcss, autoprefixer, tailwindcss-animate, @radix-ui components, class-variance-authority, clsx, tailwind-merge, lucide-react, framer-motion, react-map-gl. Set up project structure with proper aliases and directories.
+
+# Test Strategy:
+Verify project builds successfully with 'npm run build'. Test that all dependencies are properly installed and imported. Ensure Tailwind classes render correctly with dark mode support. Verify Shadcn components can be imported and styled properly. Test CSS variables and utility functions work correctly.
+
+# Subtasks:
+## 1. Create Next.js Project with TypeScript and App Router [done]
+### Dependencies: None
+### Description: Initialize a new Next.js project using the create-next-app CLI, ensuring TypeScript and the App Router are enabled during setup.
+### Details:
+Run 'npx create-next-app@latest' and select 'Yes' for TypeScript and App Router when prompted. Confirm the project builds and runs locally.
+
+## 2. Install Core Styling Dependencies [done]
+### Dependencies: 1.1
+### Description: Install all required dependencies for the complete styling setup including Tailwind CSS, PostCSS, and utility libraries.
+### Details:
+Install tailwindcss, postcss, autoprefixer, tailwindcss-animate, class-variance-authority, clsx, tailwind-merge using npm. Verify all packages are added to package.json.
+
+## 3. Configure PostCSS with Tailwind and Autoprefixer [done]
+### Dependencies: 1.2
+### Description: Set up postcss.config.js with tailwindcss and autoprefixer plugins.
+### Details:
+Create postcss.config.js in project root with module.exports containing plugins array with 'tailwindcss' and 'autoprefixer'.
+
+## 4. Configure Tailwind CSS with TypeScript and Dark Mode [done]
+### Dependencies: 1.3
+### Description: Set up tailwind.config.ts with TypeScript configuration, dark mode support, and CSS variables.
+### Details:
+Create tailwind.config.ts with darkMode: ['class'], proper content paths, extended theme with CSS variables for colors, custom border radius, font families, and include tailwindcss-animate plugin. Configure container with centered layout and proper padding.
+
+## 5. Set Up CSS Variables and Global Styles [done]
+### Dependencies: 1.4
+### Description: Configure app/globals.css with Tailwind directives, CSS variables for theming, and font imports.
+### Details:
+Update app/globals.css with @tailwind directives, set up CSS variables under :root selector for light/dark themes, import Geist and Noto Sans KR fonts from Google Fonts.
+
+## 6. Install and Configure shadcn/ui with Radix Dependencies [done]
+### Dependencies: 1.5
+### Description: Install shadcn/ui and all required Radix UI components with proper configuration.
+### Details:
+Install @radix-ui/* components and lucide-react. Run 'npx shadcn-ui@latest init' and configure components.json with 'new-york' style, RSC: true, TSX: true, CSS variables: true, base color: 'neutral', proper aliases for components and utils.
+
+## 7. Create Utility Functions and Class Merging [done]
+### Dependencies: 1.6
+### Description: Set up lib/utils.ts with cn function for class merging using clsx and tailwind-merge.
+### Details:
+Create lib/utils.ts with cn function that combines clsx and tailwind-merge for proper class merging. Export the function for use throughout the application.
+
+## 8. Install Additional Project Dependencies [done]
+### Dependencies: 1.7
+### Description: Install remaining project dependencies including Framer Motion and react-map-gl.
+### Details:
+Install framer-motion, react-map-gl, and @types/node. Verify all dependencies can be imported without TypeScript errors.
+
+## 9. Set Up Project Structure and Path Aliases [done]
+### Dependencies: 1.8
+### Description: Create project directories and configure TypeScript path aliases for clean imports.
+### Details:
+Create /components, /lib, /data, and /types directories. Ensure tsconfig.json includes proper path aliases (@/components, @/lib/utils, @/components/ui) matching the shadcn/ui configuration.
+

@@ -1,0 +1,37 @@
+# Task ID: 2
+# Title: Define TypeScript Data Models and Mock Data
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Create comprehensive TypeScript interfaces and generate realistic dummy data for contracts, crews, job tickets, and daily schedules
+# Details:
+Create /types/index.ts with interfaces: Contract { id, clientName, services: [{ serviceType, frequency, month }] }, Crew { id, name, specialization, members }, JobTicket { id, clientId, address, lat, long, task, estimatedHours, requiredEquipment, requiredMaterials }, DailySchedule { date, crewSchedules: [{ crewId, route: [jobTicketId], metrics: { driveTime, billableHours } }] }. Create /data/mockData.ts with 20+ contracts, 3-4 crews, 50+ job tickets with realistic coordinates, and pre-calculated daily schedules for September 2024.
+
+# Test Strategy:
+Validate all TypeScript interfaces compile without errors. Test data imports successfully in components. Verify mock data includes realistic addresses with valid lat/long coordinates for mapping.
+
+# Subtasks:
+## 1. Define TypeScript Interfaces for All Entities [done]
+### Dependencies: None
+### Description: Create comprehensive TypeScript interfaces for Contract, Crew, JobTicket, and DailySchedule in /types/index.ts, ensuring all required fields and nested structures are accurately represented.
+### Details:
+Include all specified properties: Contract { id, clientName, services: [{ serviceType, frequency, month }] }, Crew { id, name, specialization, members }, JobTicket { id, clientId, address, lat, long, task, estimatedHours, requiredEquipment, requiredMaterials }, DailySchedule { date, crewSchedules: [{ crewId, route: [jobTicketId], metrics: { driveTime, billableHours } }] }.
+
+## 2. Generate Realistic Mock Data for All Entities [done]
+### Dependencies: 2.1
+### Description: Populate /data/mockData.ts with realistic dummy data for contracts, crews, job tickets, and daily schedules, ensuring data interrelations and plausible values.
+### Details:
+Create at least 20 contracts, 3-4 crews, 50+ job tickets with valid addresses and coordinates, and pre-calculated daily schedules for September 2024. Ensure all mock data matches the defined interfaces and reflects realistic business scenarios.
+
+## 3. Validate Mock Data for Completeness and Mapping Accuracy [done]
+### Dependencies: 2.2
+### Description: Review and verify that all mock data entries are complete, correctly mapped, and consistent with the TypeScript interfaces.
+### Details:
+Check that every contract, crew, job ticket, and daily schedule entry includes all required fields, references are valid (e.g., job tickets reference existing contracts), and coordinates are plausible. Correct any inconsistencies or missing data.
+
+## 4. Test Data Imports and TypeScript Compilation in a Sample Component [done]
+### Dependencies: 2.3
+### Description: Import the interfaces and mock data into a sample component to verify successful TypeScript compilation and data usability.
+### Details:
+Create a simple test component that imports and displays sample data from /data/mockData.ts, ensuring there are no TypeScript errors and the data structures are accessible as intended.
+

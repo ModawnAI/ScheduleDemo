@@ -1,0 +1,93 @@
+{
+	"meta": {
+		"generatedAt": "2025-08-28T03:59:03.466Z",
+		"tasksAnalyzed": 10,
+		"totalTasks": 10,
+		"analysisCount": 10,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Initialize Next.js Project with Core Dependencies",
+			"complexityScore": 4,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the initialization into: (1) Create Next.js project with TypeScript and App Router, (2) Install and configure Tailwind CSS, (3) Install and initialize Shadcn UI, (4) Install and configure Framer Motion, Lucide React, react-map-gl, and @types/node, (5) Set up project structure with /components, /lib, /data, and /types directories, and configure tailwind.config.js and globals.css.",
+			"reasoning": "While foundational, this task is well-documented and follows standard patterns, but involves multiple dependency installations and initial configuration steps that benefit from clear separation to avoid setup errors and ensure maintainability.[1][2][3]"
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Define TypeScript Data Models and Mock Data",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Expand into: (1) Define TypeScript interfaces for all entities in /types/index.ts, (2) Generate realistic mock data for contracts, crews, job tickets, and daily schedules in /data/mockData.ts, (3) Validate mock data for completeness and mapping accuracy, (4) Test data imports and TypeScript compilation in a sample component.",
+			"reasoning": "Designing comprehensive data models and generating realistic, interrelated mock data requires careful planning and validation, especially to ensure mapping accuracy and future extensibility."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Build Application Layout and Navigation Shell",
+			"complexityScore": 5,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Decompose into: (1) Implement responsive layout.tsx with Tailwind, (2) Build header with branding and user info, (3) Create sidebar navigation with Shadcn components and Lucide icons, (4) Implement mobile hamburger menu, (5) Set up main dashboard entry point (page.tsx) and verify accessibility.",
+			"reasoning": "This task involves standard UI patterns but requires attention to responsive design, accessibility, and integration of multiple UI libraries, which are best handled in focused steps."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Implement Strategic Calendar View (Yearly/Monthly)",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) Build base calendar component with Shadcn, (2) Implement yearly/monthly view toggle, (3) Process and distribute contract services across calendar, (4) Apply color coding and tooltips for service types, (5) Add click handlers and React state management, (6) Integrate Framer Motion for transitions.",
+			"reasoning": "Calendar views with dynamic data mapping, color coding, and smooth transitions are moderately complex and require careful UI logic, state management, and animation integration."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Create Static Daily Mission Control Dashboard UI",
+			"complexityScore": 5,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: (1) Create DailyDashboard.tsx layout, (2) Build CrewCard component, (3) Build JobCard component, (4) Implement MetricsPanel, (5) Style dashboard and add map placeholder.",
+			"reasoning": "While static, this dashboard involves multiple reusable components and clear visual hierarchy, which should be developed and tested independently for maintainability."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Integrate Interactive Map with Route Visualization",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) Install and configure react-map-gl and Mapbox, (2) Create RouteMap.tsx component, (3) Implement job location markers with custom icons, (4) Draw polylines for crew routes, (5) Add popup tooltips for job details, (6) Ensure map responsiveness and performance.",
+			"reasoning": "Map integration with dynamic markers, polylines, and interactivity is moderately complex, requiring careful handling of geospatial data, UI feedback, and performance."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Connect Calendar Navigation to Daily Dashboard",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Decompose into: (1) Set up React Context for global state, (2) Update StrategicCalendar to dispatch date selection, (3) Implement getDailySchedule(date) logic, (4) Update DailyDashboard to load data reactively, (5) Add loading, error handling, and breadcrumb navigation.",
+			"reasoning": "Connecting calendar navigation to dashboard involves cross-component state management, data fetching, and UI feedback, which are best handled in modular steps."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Implement Drag-and-Drop Job Management",
+			"complexityScore": 8,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) Install and configure @dnd-kit/core and @dnd-kit/sortable, (2) Create DraggableJobCard component with Framer Motion, (3) Implement drop zones for crew timelines, (4) Add visual feedback for drag operations, (5) Implement handleJobMove logic with optimistic updates, (6) Add smooth animations for repositioning.",
+			"reasoning": "Drag-and-drop with real-time UI updates, cross-list transfers, and optimistic state management is complex and error-prone, requiring careful modularization and testing."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Add Dynamic Route Updates and Metrics Calculation",
+			"complexityScore": 7,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down into: (1) Implement calculateRouteMetrics for drive time and billable hours, (2) Update map polylines on job order change, (3) Add Haversine-based distance calculation, (4) Implement debounced updates for performance, (5) Update MetricsPanel with animated transitions and visual indicators.",
+			"reasoning": "Real-time route and metrics updates require geospatial calculations, debounced state management, and animated UI feedback, which are moderately complex and interdependent."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Implement Weather Flagging and Dispatch Functionality",
+			"complexityScore": 6,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Expand into: (1) Create mockWeatherAPI and integrate forecast data, (2) Implement weather alert logic for jobs, (3) Add weather icons and tooltips to job cards, (4) Build DispatchButton with confirmation dialog, (5) Implement dispatch success notification, (6) Add weather override functionality and style alerts.",
+			"reasoning": "Weather flagging and dispatch involves conditional UI logic, user feedback, and integration of mock APIs and notification patterns, which are moderately complex and benefit from clear separation."
+		}
+	]
+}

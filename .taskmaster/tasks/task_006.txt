@@ -1,0 +1,49 @@
+# Task ID: 6
+# Title: Integrate Interactive Map with Complete Configuration Standards and CSS Variables
+# Status: done
+# Dependencies: 2, 5
+# Priority: high
+# Description: Add Mapbox integration following established configuration standards with mandatory CSS variable usage, Shadcn 'new-york' styling, and proper TypeScript interfaces
+# Details:
+Install and configure react-map-gl with established TypeScript configuration. Create /components/dashboard/RouteMap.tsx following component architecture standards with bg-card text-card-foreground styling. Configure Mapbox with proper environment variables and PostCSS pipeline integration. Implement themed markers using established chart color variables (chart-1 through chart-5). Draw route polylines with mandatory CSS variable colors. Add popup tooltips using bg-popover text-popover-foreground border-border styling. Apply responsive container patterns (max-w-7xl mx-auto) and proper spacing.
+
+# Test Strategy:
+Verify map compiles with established TypeScript configuration and uses mandatory CSS variables. Test markers and popups follow Shadcn 'new-york' styling. Validate responsive behavior with established breakpoint system. Ensure PostCSS pipeline processes map styles correctly.
+
+# Subtasks:
+## 1. Install and Configure react-map-gl with Established TypeScript Standards [done]
+### Dependencies: None
+### Description: Install react-map-gl and mapbox-gl packages following established configuration standards with proper TypeScript integration.
+### Details:
+Install packages with proper version compatibility, configure with tailwind.config.ts integration, set up environment variables following established patterns, and ensure PostCSS pipeline processes map CSS correctly.
+
+## 2. Create RouteMap.tsx with Mandatory CSS Variable Usage [done]
+### Dependencies: 6.1
+### Description: Develop /components/dashboard/RouteMap.tsx following established component architecture with mandatory CSS variables and responsive patterns.
+### Details:
+Use bg-card text-card-foreground for container styling, apply border-border for map boundaries, implement responsive design with established breakpoints, and ensure proper TypeScript interfaces with type safety.
+
+## 3. Implement Job Location Markers with Chart Color Variables [done]
+### Dependencies: 6.2
+### Description: Render map markers using established chart color system (chart-1 through chart-5) with proper CSS variable integration and accessibility.
+### Details:
+Use chart-1 through chart-5 for crew differentiation, ensure markers follow established color psychology (green for growth/nature), implement proper hover states with transition-colors duration-200, and maintain WCAG compliance.
+
+## 4. Draw Polylines with Mandatory CSS Variable Colors [done]
+### Dependencies: 6.3
+### Description: Draw route polylines using established CSS variable system with proper color integration and responsive behavior.
+### Details:
+Use bg-primary and chart color variables for route visualization, ensure proper contrast ratios for accessibility, apply established animation patterns with Framer Motion integration, and maintain responsive performance.
+
+## 5. Add Popup Tooltips with Shadcn 'New-York' Styling [done]
+### Dependencies: 6.3
+### Description: Implement popups following established Shadcn configuration with 'new-york' style, CSS variables enabled, and proper accessibility.
+### Details:
+Style popups with bg-popover text-popover-foreground, use border-border for boundaries, apply established border radius patterns, implement proper focus states for accessibility, and ensure semantic HTML structure.
+
+## 6. Ensure Complete Configuration Standards Compliance [done]
+### Dependencies: 6.2, 6.3, 6.4, 6.5
+### Description: Optimize map component for full compliance with established configuration standards including PostCSS pipeline, TypeScript compilation, and responsive patterns.
+### Details:
+Test compilation with postcss.config.mjs pipeline, verify TypeScript type safety with tailwind.config.ts, ensure responsive behavior with established breakpoint system, and validate CSS variable usage across all map elements.
+

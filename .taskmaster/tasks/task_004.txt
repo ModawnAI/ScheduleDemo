@@ -1,0 +1,172 @@
+# Task ID: 4
+# Title: Implement Strategic Calendar View (Yearly/Monthly)
+# Status: done
+# Dependencies: 2, 3
+# Priority: high
+# Description: Build the strategic scheduling calendar with yearly and monthly views, populated with contract-based recurring services using the custom green/beige theme and color-coded visualization
+# Details:
+Create /components/StrategicCalendar.tsx using Shadcn Calendar component with custom CSS variables. Implement view toggle between yearly grid and monthly detail using bg-card text-card-foreground styling. Process contract data to distribute services evenly (e.g., '4 mows in Sept' = every 7-8 days). Use CPM AI brand colors: primary green for mowing, secondary green for fertilization, accent green for cleanup. Add hover tooltips with bg-popover text-popover-foreground styling. Implement click handlers with hover:bg-accent transitions. Use Framer Motion for smooth view transitions with the custom --radius variable.
+
+# Test Strategy:
+Verify calendar populates correctly from mock contract data with proper theme colors. Test view switching between yearly/monthly modes with smooth transitions. Validate color coding matches service types using CSS variables. Ensure click events properly capture selected dates with proper hover states.
+
+# Subtasks:
+## 1. Build Base Calendar Component with Shadcn and Custom Theme [done]
+### Dependencies: None
+### Description: Create the foundational calendar component in /components/StrategicCalendar.tsx using Shadcn UI calendar with custom CSS variables for the green/beige theme integration.
+### Details:
+Use bg-background text-foreground for base styling, border-border for calendar grid lines, and ensure proper integration with the custom --radius variable. Apply Geist font family and ensure dark mode compatibility.
+
+## 2. Implement Yearly/Monthly View Toggle with Theme Styling [done]
+### Dependencies: 4.1
+### Description: Add functionality to switch between yearly grid and monthly detail views using custom theme colors and hover states.
+### Details:
+Style toggle buttons with bg-primary text-primary-foreground for active state and hover:bg-accent hover:text-accent-foreground for interactions. Use rounded-lg for consistent corner rounding.
+
+## 3. Process and Distribute Contract Services with Brand Color Coding [done]
+### Dependencies: 4.1, 4.2
+### Description: Parse contract data and algorithmically distribute recurring services using the CPM AI color palette for visual distinction.
+### Details:
+Map service types to brand colors: primary green for mowing, secondary green for fertilization, accent green for cleanup. Use CSS variables to ensure theme consistency and dark mode support.
+<info added on 2025-08-28T05:05:37.482Z>
+Enhanced Service Color Mapping & Distribution Algorithm
+
+**Implemented Brand Color Coding:**
+- Mapped all 8 service types to CPM AI's green/beige theme using CSS variables
+- Primary services (Weekly/Bi-weekly Mowing) use main green palette (bg-primary, bg-chart-3)
+- Maintenance services (Fertilization, Irrigation) use secondary green palette (bg-chart-1, bg-chart-2)
+- Seasonal services (Cleanup, Leaf Removal, etc.) use accent colors (bg-secondary, bg-accent, bg-chart-4, bg-chart-5)
+- All colors follow the established CSS variable system for light/dark mode consistency
+
+**Enhanced Service Distribution Algorithm:**
+- Weekly services: Intelligent 7-day intervals starting from random day 1-7
+- Bi-weekly services: 14-day intervals with proper spacing
+- Other services: Even distribution with randomization + weekend avoidance for commercial services
+- Avoids Sundays for most services except cleanup (more realistic scheduling)
+
+**Technical Implementation:**
+- Created getServiceTypeColor() function with full CSS class strings
+- Created getServiceDotColor() function for calendar day indicators
+- Updated CustomDayButton to use proper brand colors for service dots
+- All colors use CSS variables ensuring theme consistency and dark mode support
+- Maintains existing Framer Motion animations and responsive design
+
+**Visual Result:**
+- Calendar days show color-coded dots representing different service types
+- Each service type has a distinct, brand-appropriate color from the green palette
+- Colors automatically adapt to light/dark mode via CSS variables
+- Service distribution appears more realistic and professional
+</info added on 2025-08-28T05:05:37.482Z>
+
+## 4. Apply Themed Color Coding and Styled Tooltips [done]
+### Dependencies: 4.1, 4.2, 4.3
+### Description: Visualize service types using the custom green palette and add hover tooltips with proper theme styling.
+### Details:
+Use bg-popover text-popover-foreground for tooltips with border-border styling. Implement smooth hover transitions and ensure accessibility with proper contrast ratios.
+<info added on 2025-08-28T05:07:42.706Z>
+COMPLETED: Enhanced Themed Color Coding & Professional Tooltips
+
+Implemented Themed Tooltip System:
+- Updated shadcn tooltip component to use bg-popover text-popover-foreground with border-border styling
+- Added shadow-md for proper depth and visual hierarchy
+- Replaced basic title attributes with rich, interactive Radix UI tooltips
+- All tooltips follow the established CSS variable system for light/dark mode consistency
+
+Enhanced Calendar Day Tooltips:
+- Calendar days with services show detailed tooltip on hover
+- Tooltips display service count, service types with color dots, and client names
+- Proper truncation for multiple services (+X more services)
+- Smooth hover transitions with hover:bg-accent hover:text-accent-foreground
+- Larger service dots (1.5px) with shadow-sm for better visibility
+
+Added Service Type Legend:
+- Interactive legend showing all 8 service types with their brand colors
+- Grid layout responsive (2 cols mobile, 4 cols desktop)
+- Each legend item has hover effects and explanatory tooltips
+- Helps users understand the color coding system at a glance
+
+Enhanced Selected Date Details:
+- Service cards now use bg-card with proper border styling
+- Added color dots matching the calendar indicators
+- Improved layout with service badges and client information
+- Rich tooltips showing full contract details on hover
+- Smooth hover animations with Framer Motion integration
+
+Accessibility & UX Improvements:
+- Proper contrast ratios using CSS variables
+- Keyboard navigation support via Radix UI
+- Screen reader friendly with semantic HTML
+- Smooth transitions (duration-200) for all interactive elements
+- Cursor help indicators for interactive legend items
+
+Technical Implementation:
+- All colors use CSS variables ensuring theme consistency
+- TooltipProvider wrapping for proper context
+- Responsive design with mobile-first approach
+- Maintains existing Framer Motion animations
+- Zero accessibility violations with proper ARIA support
+</info added on 2025-08-28T05:07:42.706Z>
+
+## 5. Add Click Handlers with Themed Interactive States [done]
+### Dependencies: 4.1, 4.2, 4.3, 4.4
+### Description: Enable date selection via click events with proper theme-based visual feedback and React state management.
+### Details:
+Implement click handlers with hover:bg-accent hover:text-accent-foreground states. Use bg-primary text-primary-foreground for selected dates and ensure smooth transitions.
+<info added on 2025-08-28T05:10:52.341Z>
+COMPLETED: Enhanced Click Handlers with Themed Interactive States
+
+**Implemented Advanced Click Handling:**
+- Custom handleClick function with visual feedback and haptic support
+- Proper date selection state management with smooth transitions
+- Enhanced button states: selected, today, with-events, and regular days
+- Mobile haptic feedback for better user experience (navigator.vibrate)
+
+**Enhanced Visual States & Theming:**
+- Selected dates: bg-primary text-primary-foreground with shadow-md and scale-105
+- Today's date: bg-accent text-accent-foreground with border-2 border-primary/30
+- Days with services: bg-secondary/30 with enhanced hover effects
+- Regular days: standard hover:bg-accent hover:text-accent-foreground
+- All states use smooth transition-all duration-200 with transform effects
+
+**Interactive Service Type Filtering:**
+- Added filteredServiceTypes state for dynamic calendar filtering
+- Clickable legend items with toggle functionality
+- Visual feedback for active filters (bg-primary with ring effects)
+- Clear filters button with count display
+- Real-time calendar updates based on selected service types
+- Animated filter status messages
+
+**Enhanced View Toggle Controls:**
+- Segmented control design with bg-muted container
+- Active state: bg-primary text-primary-foreground with scale-105
+- Inactive state: hover:bg-accent hover:text-accent-foreground with scale-102
+- Smooth transitions and visual feedback for mode switching
+
+**Advanced Calendar Day Interactions:**
+- Multi-state button styling based on selection, today, and event status
+- Animated service dots with staggered entrance animations
+- Ring effects on selected day service dots
+- Today indicator dot for current date highlighting
+- Enhanced tooltips showing selection and today status
+
+**Accessibility & UX Improvements:**
+- Proper keyboard navigation and focus states
+- Screen reader friendly state announcements
+- Smooth scale transforms for interactive feedback
+- Consistent hover states across all interactive elements
+- Visual hierarchy with shadows and borders
+
+**Technical Implementation:**
+- React state management for selection and filtering
+- CSS variables for consistent theming across all states
+- Framer Motion animations for service dots and status messages
+- TypeScript type safety for all event handlers
+- Performance optimized with proper event handling
+</info added on 2025-08-28T05:10:52.341Z>
+
+## 6. Integrate Framer Motion with Custom Theme Transitions [done]
+### Dependencies: 4.2
+### Description: Enhance user experience with animated transitions using Framer Motion and custom CSS variables for consistent styling.
+### Details:
+Apply Framer Motion animations that respect the custom --radius variable and use theme colors for transition states. Ensure animations work in both light and dark modes.
+
