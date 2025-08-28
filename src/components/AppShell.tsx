@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Calendar, MapPin, Users, Menu, X, Leaf, Zap } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { Calendar, MapPin, Users, Menu, X, Leaf, Zap, Route, CalendarDays } from 'lucide-react';
+
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -30,6 +30,18 @@ const AppShell: React.FC<AppShellProps> = ({ children }) => {
       href: '/crews',
       icon: Users,
       description: 'Manage crew assignments and schedules'
+    },
+    {
+      name: 'Crew Schedule',
+      href: '/schedule',
+      icon: CalendarDays,
+      description: 'Weekly schedule view for crew leaders and teams'
+    },
+    {
+      name: 'Route Optimization',
+      href: '/routes',
+      icon: Route,
+      description: 'AI-powered route optimization with real-time tracking'
     },
     {
       name: 'Enhanced Demo',
@@ -152,9 +164,6 @@ const AppShell: React.FC<AppShellProps> = ({ children }) => {
               <div className="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
               <span>System Active</span>
             </div>
-            
-            {/* Theme toggle */}
-            <ThemeToggle />
             
             <div className="flex items-center space-x-2">
               <div className="text-right hidden md:block">
