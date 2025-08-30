@@ -2,860 +2,259 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
-        "title": "Initialize Next.js Project with Core Dependencies",
-        "description": "Set up the foundational Next.js application with App Router and install all required dependencies including Tailwind CSS, Shadcn UI, Framer Motion, and Lucide React with complete styling setup protocol",
-        "status": "done",
+        "id": 12,
+        "title": "Setup Progressive Web App (PWA) Foundation",
+        "description": "Initialize the PWA project structure with offline-first architecture, service worker configuration, and caching strategies for field use",
+        "details": "Create a Next.js or React PWA with service worker registration. Configure Workbox for caching strategies including 'My Work' tickets, community data, contacts, and sites. Implement manifest.json with proper icons and offline fallback pages. Set up IndexedDB for local storage with Dexie.js or similar. Configure build pipeline for PWA optimization.\n\n```javascript\n// service-worker.js\nself.addEventListener('install', (event) => {\n  event.waitUntil(\n    caches.open('work-orders-v1').then((cache) => {\n      return cache.addAll(['/offline', '/my-work', '/communities']);\n    })\n  );\n});\n```",
+        "testStrategy": "Verify PWA installation prompts appear, offline functionality works, and Lighthouse PWA audit scores 90+. Test caching behavior and service worker registration across different browsers.",
+        "priority": "high",
         "dependencies": [],
-        "priority": "high",
-        "details": "Create new Next.js project using 'npx create-next-app@latest' with TypeScript and App Router. Follow the complete styling setup protocol including PostCSS configuration, TypeScript-based Tailwind config with dark mode support, shadcn/ui configuration with 'new-york' style, CSS variables setup, and utility functions. Install all required dependencies: tailwindcss, postcss, autoprefixer, tailwindcss-animate, @radix-ui components, class-variance-authority, clsx, tailwind-merge, lucide-react, framer-motion, react-map-gl. Set up project structure with proper aliases and directories.",
-        "testStrategy": "Verify project builds successfully with 'npm run build'. Test that all dependencies are properly installed and imported. Ensure Tailwind classes render correctly with dark mode support. Verify Shadcn components can be imported and styled properly. Test CSS variables and utility functions work correctly.",
+        "status": "pending",
         "subtasks": [
           {
             "id": 1,
-            "title": "Create Next.js Project with TypeScript and App Router",
-            "description": "Initialize a new Next.js project using the create-next-app CLI, ensuring TypeScript and the App Router are enabled during setup.",
-            "status": "done",
+            "title": "Initialize Next.js or React Project with PWA Support",
+            "description": "Set up the base project structure using Next.js or React, and integrate a PWA plugin (such as next-pwa) to enable service worker registration and offline-first capabilities.",
             "dependencies": [],
-            "details": "Run 'npx create-next-app@latest' and select 'Yes' for TypeScript and App Router when prompted. Confirm the project builds and runs locally.",
-            "testStrategy": "Verify project creates successfully and runs on localhost:3000"
+            "details": "Create a new Next.js or React application. Install and configure the next-pwa package (or equivalent) to handle service worker registration and PWA scaffolding. Ensure the project is ready for further PWA-specific enhancements.",
+            "status": "pending",
+            "testStrategy": "Verify that the application builds successfully, the service worker is registered, and the app shell loads offline."
           },
           {
             "id": 2,
-            "title": "Install Core Styling Dependencies",
-            "description": "Install all required dependencies for the complete styling setup including Tailwind CSS, PostCSS, and utility libraries.",
-            "status": "done",
+            "title": "Configure Service Worker and Workbox for Custom Caching Strategies",
+            "description": "Set up and customize the service worker using Workbox to implement caching strategies for 'My Work' tickets, community data, contacts, and sites.",
             "dependencies": [
-              1
+              "12.1"
             ],
-            "details": "Install tailwindcss, postcss, autoprefixer, tailwindcss-animate, class-variance-authority, clsx, tailwind-merge using npm. Verify all packages are added to package.json.",
-            "testStrategy": "Check package.json contains all required dependencies and npm install completes without errors"
+            "details": "Edit the Workbox configuration to define runtime and precaching rules for key data endpoints and static assets. Ensure offline access to critical resources and implement cache versioning and updates.",
+            "status": "pending",
+            "testStrategy": "Test offline access to cached resources, validate cache updates, and inspect service worker behavior in DevTools."
           },
           {
             "id": 3,
-            "title": "Configure PostCSS with Tailwind and Autoprefixer",
-            "description": "Set up postcss.config.js with tailwindcss and autoprefixer plugins.",
-            "status": "done",
+            "title": "Implement manifest.json with Icons and Offline Fallback Pages",
+            "description": "Create and configure the web app manifest file with appropriate metadata, icons, and offline fallback pages for installation and offline support.",
             "dependencies": [
-              2
+              "12.1"
             ],
-            "details": "Create postcss.config.js in project root with module.exports containing plugins array with 'tailwindcss' and 'autoprefixer'.",
-            "testStrategy": "Verify PostCSS processes CSS correctly and autoprefixer adds vendor prefixes"
+            "details": "Generate manifest.json with required fields (name, short_name, start_url, display, theme_color, background_color, icons). Add icons in multiple sizes to the public directory. Implement offline fallback pages for navigation when the network is unavailable.",
+            "status": "pending",
+            "testStrategy": "Verify PWA installability, correct icon display, and offline fallback page rendering when disconnected."
           },
           {
             "id": 4,
-            "title": "Configure Tailwind CSS with TypeScript and Dark Mode",
-            "description": "Set up tailwind.config.ts with TypeScript configuration, dark mode support, and CSS variables.",
-            "status": "done",
+            "title": "Set Up IndexedDB Local Storage with Dexie.js",
+            "description": "Integrate IndexedDB using Dexie.js (or similar) to provide robust local storage for offline data persistence.",
             "dependencies": [
-              3
+              "12.1"
             ],
-            "details": "Create tailwind.config.ts with darkMode: ['class'], proper content paths, extended theme with CSS variables for colors, custom border radius, font families, and include tailwindcss-animate plugin. Configure container with centered layout and proper padding.",
-            "testStrategy": "Verify Tailwind config compiles and dark mode classes work correctly"
+            "details": "Install Dexie.js, define database schema for offline data (e.g., tickets, contacts), and implement CRUD operations for local-first data access. Ensure data sync strategies are ready for future implementation.",
+            "status": "pending",
+            "testStrategy": "Test data persistence and retrieval in offline mode, and validate data integrity after reconnecting."
           },
           {
             "id": 5,
-            "title": "Set Up CSS Variables and Global Styles",
-            "description": "Configure app/globals.css with Tailwind directives, CSS variables for theming, and font imports.",
-            "status": "done",
+            "title": "Configure Build Pipeline for PWA Optimization",
+            "description": "Optimize the build process for PWA performance, including asset minification, service worker generation, and cache busting.",
             "dependencies": [
-              4
+              "12.2",
+              "12.3",
+              "12.4"
             ],
-            "details": "Update app/globals.css with @tailwind directives, set up CSS variables under :root selector for light/dark themes, import Geist and Noto Sans KR fonts from Google Fonts.",
-            "testStrategy": "Verify CSS variables are available and fonts load correctly in browser"
-          },
-          {
-            "id": 6,
-            "title": "Install and Configure shadcn/ui with Radix Dependencies",
-            "description": "Install shadcn/ui and all required Radix UI components with proper configuration.",
-            "status": "done",
-            "dependencies": [
-              5
-            ],
-            "details": "Install @radix-ui/* components and lucide-react. Run 'npx shadcn-ui@latest init' and configure components.json with 'new-york' style, RSC: true, TSX: true, CSS variables: true, base color: 'neutral', proper aliases for components and utils.",
-            "testStrategy": "Verify shadcn/ui components can be added and imported successfully"
-          },
-          {
-            "id": 7,
-            "title": "Create Utility Functions and Class Merging",
-            "description": "Set up lib/utils.ts with cn function for class merging using clsx and tailwind-merge.",
-            "status": "done",
-            "dependencies": [
-              6
-            ],
-            "details": "Create lib/utils.ts with cn function that combines clsx and tailwind-merge for proper class merging. Export the function for use throughout the application.",
-            "testStrategy": "Test cn function properly merges and deduplicates Tailwind classes"
-          },
-          {
-            "id": 8,
-            "title": "Install Additional Project Dependencies",
-            "description": "Install remaining project dependencies including Framer Motion and react-map-gl.",
-            "status": "done",
-            "dependencies": [
-              7
-            ],
-            "details": "Install framer-motion, react-map-gl, and @types/node. Verify all dependencies can be imported without TypeScript errors.",
-            "testStrategy": "Verify all additional dependencies install correctly and can be imported"
-          },
-          {
-            "id": 9,
-            "title": "Set Up Project Structure and Path Aliases",
-            "description": "Create project directories and configure TypeScript path aliases for clean imports.",
-            "status": "done",
-            "dependencies": [
-              8
-            ],
-            "details": "Create /components, /lib, /data, and /types directories. Ensure tsconfig.json includes proper path aliases (@/components, @/lib/utils, @/components/ui) matching the shadcn/ui configuration.",
-            "testStrategy": "Verify directory structure is created and path aliases resolve correctly in imports"
+            "details": "Update build scripts to include PWA optimizations such as SWC minification, static asset hashing, and automated service worker generation. Ensure generated files (e.g., sw.js, workbox-*.js) are handled correctly in version control.",
+            "status": "pending",
+            "testStrategy": "Run Lighthouse PWA audit to confirm a score of 90+, check build artifacts, and verify that generated service worker files are excluded from source control."
           }
         ]
       },
       {
-        "id": 2,
-        "title": "Define TypeScript Data Models and Mock Data",
-        "description": "Create comprehensive TypeScript interfaces and generate realistic dummy data for contracts, crews, job tickets, and daily schedules",
-        "details": "Create /types/index.ts with interfaces: Contract { id, clientName, services: [{ serviceType, frequency, month }] }, Crew { id, name, specialization, members }, JobTicket { id, clientId, address, lat, long, task, estimatedHours, requiredEquipment, requiredMaterials }, DailySchedule { date, crewSchedules: [{ crewId, route: [jobTicketId], metrics: { driveTime, billableHours } }] }. Create /data/mockData.ts with 20+ contracts, 3-4 crews, 50+ job tickets with realistic coordinates, and pre-calculated daily schedules for September 2024.",
-        "testStrategy": "Validate all TypeScript interfaces compile without errors. Test data imports successfully in components. Verify mock data includes realistic addresses with valid lat/long coordinates for mapping.",
+        "id": 13,
+        "title": "Design and Implement Core Database Schema",
+        "description": "Create the minimal data model with WorkOrder, WorkOrderMessage, WorkOrderEvent tables and supporting entities with proper indexing and constraints",
+        "details": "Implement PostgreSQL schema with row-level security (RLS). Create tables: WorkOrder (id, status, site_id, customer_id, contact_id, owner_user_id, tags[], external_ref, last_activity, reopen_count, created_at, updated_at), WorkOrderMessage (id, work_order_id, sender enum, visibility enum, body, attachments[], created_at), WorkOrderEvent (id, work_order_id, event_type, actor, occurred_at, metadata jsonb), SiteManagerAssignment, WorkOrderWatcher. Add proper indexes on frequently queried fields (site_id, owner_user_id, status, created_at). Implement RLS policies based on user branch and site assignments.\n\n```sql\nCREATE TABLE work_orders (\n  id SERIAL PRIMARY KEY,\n  status work_order_status DEFAULT 'new',\n  site_id INTEGER REFERENCES sites(id),\n  external_ref VARCHAR(255),\n  reopen_count INTEGER DEFAULT 0,\n  created_at TIMESTAMP DEFAULT NOW()\n);\n```",
+        "testStrategy": "Run database migrations, verify RLS policies prevent unauthorized access, test all foreign key constraints, and validate index performance with sample data.",
         "priority": "high",
         "dependencies": [
-          1
+          12
         ],
-        "status": "done",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Define TypeScript Interfaces for All Entities",
-            "description": "Create comprehensive TypeScript interfaces for Contract, Crew, JobTicket, and DailySchedule in /types/index.ts, ensuring all required fields and nested structures are accurately represented.",
-            "dependencies": [],
-            "details": "Include all specified properties: Contract { id, clientName, services: [{ serviceType, frequency, month }] }, Crew { id, name, specialization, members }, JobTicket { id, clientId, address, lat, long, task, estimatedHours, requiredEquipment, requiredMaterials }, DailySchedule { date, crewSchedules: [{ crewId, route: [jobTicketId], metrics: { driveTime, billableHours } }] }.",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 2,
-            "title": "Generate Realistic Mock Data for All Entities",
-            "description": "Populate /data/mockData.ts with realistic dummy data for contracts, crews, job tickets, and daily schedules, ensuring data interrelations and plausible values.",
-            "dependencies": [
-              "2.1"
-            ],
-            "details": "Create at least 20 contracts, 3-4 crews, 50+ job tickets with valid addresses and coordinates, and pre-calculated daily schedules for September 2024. Ensure all mock data matches the defined interfaces and reflects realistic business scenarios.",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 3,
-            "title": "Validate Mock Data for Completeness and Mapping Accuracy",
-            "description": "Review and verify that all mock data entries are complete, correctly mapped, and consistent with the TypeScript interfaces.",
-            "dependencies": [
-              "2.2"
-            ],
-            "details": "Check that every contract, crew, job ticket, and daily schedule entry includes all required fields, references are valid (e.g., job tickets reference existing contracts), and coordinates are plausible. Correct any inconsistencies or missing data.",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 4,
-            "title": "Test Data Imports and TypeScript Compilation in a Sample Component",
-            "description": "Import the interfaces and mock data into a sample component to verify successful TypeScript compilation and data usability.",
-            "dependencies": [
-              "2.3"
-            ],
-            "details": "Create a simple test component that imports and displays sample data from /data/mockData.ts, ensuring there are no TypeScript errors and the data structures are accessible as intended.",
-            "status": "done",
-            "testStrategy": ""
-          }
-        ]
+        "status": "pending",
+        "subtasks": []
       },
       {
-        "id": 3,
-        "title": "Build Application Layout and Navigation Shell",
-        "description": "Create the main application layout using Shadcn UI components with header, sidebar navigation, and responsive content areas",
-        "details": "Create layout.tsx with responsive design using Tailwind Grid/Flexbox. Implement header with company branding and user info. Build sidebar navigation with links to 'Strategic Calendar' and 'Daily Dashboard'. Use Shadcn components: Button, Card, Avatar. Implement mobile-responsive hamburger menu. Create page.tsx as main dashboard entry point. Use Lucide icons for navigation (Calendar, MapPin, Users).",
-        "testStrategy": "Test responsive behavior across desktop, tablet, and mobile viewports. Verify navigation links work correctly. Ensure Shadcn components render with proper styling and accessibility features.",
-        "priority": "medium",
-        "dependencies": [
-          1,
-          2
-        ],
-        "status": "done",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Implement Responsive layout.tsx with Tailwind",
-            "description": "Create the main layout.tsx file using Tailwind CSS Grid/Flexbox to ensure responsive design for desktop, tablet, and mobile. Structure the layout to accommodate header, sidebar, and content areas.",
-            "dependencies": [],
-            "details": "Set up the foundational grid or flex structure. Ensure content areas resize and stack appropriately on different screen sizes. Prepare placeholders for header and sidebar components.\n<info added on 2025-08-28T04:20:54.248Z>\n✅ COMPLETED: Responsive layout implementation\n\n**What was accomplished:**\n- Fixed CSS import order issue (moved @import to top of globals.css)\n- Created comprehensive AppShell component with responsive design\n- Implemented responsive layout.tsx with proper font loading\n- Updated page.tsx to use the new AppShell component\n- Successfully built and tested the application\n\n**Key features implemented:**\n- Mobile-first responsive design using Tailwind CSS\n- Proper CSS variable integration with the custom theme\n- Flexible layout structure that accommodates header, sidebar, and main content\n- Clean separation of concerns between layout and content components\n\n**Technical details:**\n- Used CSS Grid/Flexbox for responsive behavior\n- Integrated with the beautiful custom green/beige theme\n- Proper TypeScript typing throughout\n- Build passes successfully with no errors\n\nThe responsive foundation is now complete and ready for the header and sidebar components.\n</info added on 2025-08-28T04:20:54.248Z>",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 2,
-            "title": "Build Header with Branding and User Info",
-            "description": "Develop the header component featuring company branding (logo/name) and user information (avatar, name, dropdown). Integrate Shadcn UI Button and Avatar components.",
-            "dependencies": [
-              "3.1"
-            ],
-            "details": "Position the header at the top of the layout. Use Shadcn UI components for consistent styling. Ensure the header is responsive and accessible.\n<info added on 2025-08-28T04:23:47.492Z>\nCOMPLETED: Header with Branding and User Info\n\n**What was accomplished:**\n- Implemented comprehensive header in AppShell component\n- Added \"CPM AI\" branding with Leaf icon (Lucide React)\n- Integrated user information display (Dave Miller, Operations Manager)\n- Used custom CSS theme variables for consistent styling\n- Added mobile hamburger menu button for responsive design\n- Implemented proper hover states with theme colors\n\n**Styling Integration:**\n- Used `bg-card` and `border-border` for header background and borders\n- Applied `text-foreground` and `text-muted-foreground` for typography\n- Integrated `hover:bg-accent` for interactive elements\n- Used `bg-primary` for user avatar with `text-primary-foreground`\n- Followed the established green/beige color palette\n\n**Key Features:**\n- Company branding: \"CPM AI\" with Leaf icon\n- User avatar with initials \"DM\"\n- System status indicator with animated pulse\n- Responsive design with mobile menu toggle\n- Proper semantic HTML structure for accessibility\n\nThe header perfectly integrates with the custom theme and provides a professional landscaping industry aesthetic.\n</info added on 2025-08-28T04:23:47.492Z>",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 3,
-            "title": "Create Sidebar Navigation with Shadcn Components and Lucide Icons",
-            "description": "Construct the sidebar navigation using Shadcn UI Card and Button components, incorporating Lucide icons for 'Strategic Calendar', 'Daily Dashboard', and other navigation links.",
-            "dependencies": [
-              "3.1"
-            ],
-            "details": "Implement navigation links with clear labels and icons. Ensure sidebar is collapsible or hides on smaller screens. Use accessible markup and keyboard navigation.\n<info added on 2025-08-28T04:24:00.631Z>\n✅ COMPLETED: Sidebar Navigation with Shadcn Components and Lucide Icons\n\n**What was accomplished:**\n- Built comprehensive sidebar navigation in AppShell component\n- Integrated Lucide React icons: Calendar, MapPin, Users for navigation\n- Used custom CSS theme variables throughout\n- Implemented responsive sidebar with mobile overlay\n- Added descriptive text for each navigation item\n\n**Navigation Structure:**\n- **Strategic Calendar** (Calendar icon): \"Yearly and monthly view of all scheduled services\"\n- **Daily Dashboard** (MapPin icon): \"Mission control for daily route optimization\"  \n- **Crew Management** (Users icon): \"Manage crew assignments and schedules\"\n\n**Styling Integration:**\n- Used `bg-sidebar` and `text-sidebar-foreground` for sidebar background/text\n- Applied `hover:bg-sidebar-accent hover:text-sidebar-accent-foreground` for hover states\n- Used `border-sidebar-border` for consistent borders\n- Integrated `bg-sidebar-primary` for branding elements\n- Followed the custom green/beige color palette throughout\n\n**Key Features:**\n- Mobile-responsive with transform animations\n- Proper accessibility with semantic navigation\n- Company branding in sidebar header\n- User info in sidebar footer\n- Smooth transitions and hover effects\n- Close button for mobile overlay\n\n**Technical Implementation:**\n- CSS transforms for mobile slide-in/out\n- Proper z-index layering for overlay\n- Tailwind responsive classes (lg: breakpoints)\n- Clean component structure with TypeScript\n\nThe sidebar perfectly integrates with the custom theme and provides intuitive navigation for the landscaping application.\n</info added on 2025-08-28T04:24:00.631Z>",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 4,
-            "title": "Implement Mobile Hamburger Menu",
-            "description": "Add a mobile-responsive hamburger menu to toggle the sidebar navigation on small screens, ensuring smooth transitions and accessibility.",
-            "dependencies": [
-              "3.2",
-              "3.3"
-            ],
-            "details": "Use Shadcn Button for the hamburger trigger. Animate sidebar open/close. Ensure ARIA attributes and keyboard support for accessibility.\n<info added on 2025-08-28T04:24:21.611Z>\n✅ COMPLETED: Mobile Hamburger Menu Implementation\n\n**What was accomplished:**\n- Implemented mobile hamburger menu in AppShell component\n- Added responsive menu button with Menu/X icons from Lucide React\n- Created mobile overlay with backdrop blur effect\n- Integrated smooth transform animations for sidebar slide-in/out\n- Used custom CSS theme variables for consistent styling\n\n**Mobile Functionality:**\n- **Menu Button**: Shows on mobile (lg:hidden) with Menu icon\n- **Close Button**: X icon in sidebar header for mobile\n- **Overlay**: Semi-transparent backdrop with blur effect\n- **Animations**: CSS transform transitions (duration-300 ease-in-out)\n- **Touch-friendly**: Proper touch targets and gestures\n\n**Styling Integration:**\n- Used `hover:bg-accent` for menu button hover states\n- Applied `bg-background/80 backdrop-blur-sm` for overlay\n- Integrated `text-foreground` for icon colors\n- Used responsive Tailwind classes (lg:hidden, lg:translate-x-0)\n- Followed the custom green/beige color palette\n\n**Technical Implementation:**\n- React state management with `useState` for sidebar toggle\n- Conditional rendering based on screen size\n- Proper z-index layering (z-40 overlay, z-50 sidebar)\n- Click outside to close functionality\n- Smooth CSS transitions for professional UX\n\n**Accessibility Features:**\n- Proper ARIA labels for screen readers\n- Keyboard navigation support\n- Focus management for mobile interactions\n- Semantic button elements\n\nThe mobile hamburger menu provides excellent responsive navigation that maintains the custom theme aesthetics across all device sizes.\n</info added on 2025-08-28T04:24:21.611Z>",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 5,
-            "title": "Set Up Main Dashboard Entry Point (page.tsx) and Verify Accessibility",
-            "description": "Create page.tsx as the main dashboard entry, integrating the layout and navigation shell. Test and verify accessibility features across all components.",
-            "dependencies": [
-              "3.1",
-              "3.2",
-              "3.3",
-              "3.4"
-            ],
-            "details": "Render the dashboard within the layout. Validate navigation links, responsive behavior, and Shadcn component styling. Use accessibility testing tools to ensure compliance.\n<info added on 2025-08-28T04:24:45.174Z>\nCOMPLETED: Dashboard rendering successfully integrated within AppShell layout. Navigation links validated and functioning correctly across all breakpoints. Shadcn component styling properly applied with custom green/beige theme variables. Accessibility compliance verified through comprehensive testing including semantic HTML structure, WCAG color contrast standards, keyboard navigation, screen reader compatibility, and focus management. Main dashboard entry point established with professional welcome section, responsive card layout, and proper TypeScript implementation. Build verification confirms error-free compilation with all CSS variables resolving correctly.\n</info added on 2025-08-28T04:24:45.174Z>\n<info added on 2025-08-28T04:28:49.023Z>\nENHANCED: Modular Dashboard with Responsive shadcn Components\n\nMajor Enhancement Completed:\n- Completely refactored page.tsx into modular, reusable components\n- Built comprehensive dashboard using shadcn/ui components\n- Implemented fully responsive design for web and mobile\n- Integrated perfectly with custom green/beige theme\n\nNew Modular Components Created:\n1. DashboardHeader: Welcome section with quick stats cards\n2. QuickActions: Navigation shortcuts with themed buttons\n3. SystemStatus: Real-time system health with tabs\n4. DataValidation: Enhanced data validation display\n\nResponsive Design Features:\n- Mobile-First: All components adapt from mobile to desktop\n- Grid Layouts: CSS Grid with responsive breakpoints (sm, lg, xl)\n- Flexible Spacing: Adaptive padding and gaps (p-4 sm:p-6 lg:p-8)\n- Component Stacking: Logical content flow on all screen sizes\n- Touch-Friendly: Proper touch targets and interactive elements\n\nshadcn/ui Integration:\n- Card Components: Consistent card layouts with headers/content\n- Button Variants: Primary, outline, and custom styled buttons\n- Badge Components: Status indicators with theme colors\n- Tabs Interface: Organized content with accessible navigation\n- Alert Components: System notifications with proper styling\n- Separator Elements: Visual content division\n\nCustom Theme Integration:\n- CSS Variables: All components use theme variables\n- Brand Colors: Green primary with beige backgrounds throughout\n- Hover States: Consistent interactive feedback\n- Typography: Proper font hierarchy with theme colors\n- Accessibility: WCAG compliant contrast and focus states\n\nTechnical Implementation:\n- TypeScript: Full type safety across all components\n- Component Props: Flexible className props for customization\n- Export Index: Clean component exports from dashboard/index.ts\n- Build Verification: Successfully compiles without errors\n- Performance: Optimized bundle size and loading\n\nThe dashboard now provides a professional, modular foundation that scales beautifully across all devices while maintaining the custom landscaping industry aesthetic.\n</info added on 2025-08-28T04:28:49.023Z>",
-            "status": "done",
-            "testStrategy": ""
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "title": "Implement Strategic Calendar View (Yearly/Monthly)",
-        "description": "Build the strategic scheduling calendar with yearly and monthly views, populated with contract-based recurring services using the custom green/beige theme and color-coded visualization",
-        "status": "done",
-        "dependencies": [
-          2,
-          3
-        ],
+        "id": 14,
+        "title": "Implement Multi-Channel Intake System",
+        "description": "Build automated ticket creation from email, SMS, and customer portal with intelligent parsing and site/contact linking",
+        "details": "Create intake processors for each channel: Email webhook handler (SendGrid/Mailgun), SMS webhook (Twilio), and portal API endpoint. Implement message parsing to extract subject, body, and identify site/contact using regex patterns, keywords, or ML-based classification. Create deduplication logic checking external_ref and site_id within 60-day window. Auto-assign 'New' status and trigger manager notifications.\n\n```javascript\n// email-intake.js\nasync function processInboundEmail(emailData) {\n  const parsed = parseEmailContent(emailData);\n  const site = await identifySite(parsed.from, parsed.subject);\n  const existingTicket = await findDuplicateTicket(parsed.external_ref, site.id);\n  \n  if (existingTicket) {\n    return appendToExistingTicket(existingTicket, parsed);\n  }\n  return createNewWorkOrder(parsed, site);\n}\n```",
+        "testStrategy": "Test email parsing accuracy, SMS integration, duplicate detection within 60-day window, and verify proper site/contact linking with various message formats.",
         "priority": "high",
-        "details": "Create /components/StrategicCalendar.tsx using Shadcn Calendar component with custom CSS variables. Implement view toggle between yearly grid and monthly detail using bg-card text-card-foreground styling. Process contract data to distribute services evenly (e.g., '4 mows in Sept' = every 7-8 days). Use CPM AI brand colors: primary green for mowing, secondary green for fertilization, accent green for cleanup. Add hover tooltips with bg-popover text-popover-foreground styling. Implement click handlers with hover:bg-accent transitions. Use Framer Motion for smooth view transitions with the custom --radius variable.",
-        "testStrategy": "Verify calendar populates correctly from mock contract data with proper theme colors. Test view switching between yearly/monthly modes with smooth transitions. Validate color coding matches service types using CSS variables. Ensure click events properly capture selected dates with proper hover states.",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Build Base Calendar Component with Shadcn and Custom Theme",
-            "description": "Create the foundational calendar component in /components/StrategicCalendar.tsx using Shadcn UI calendar with custom CSS variables for the green/beige theme integration.",
-            "dependencies": [],
-            "details": "Use bg-background text-foreground for base styling, border-border for calendar grid lines, and ensure proper integration with the custom --radius variable. Apply Geist font family and ensure dark mode compatibility.",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 2,
-            "title": "Implement Yearly/Monthly View Toggle with Theme Styling",
-            "description": "Add functionality to switch between yearly grid and monthly detail views using custom theme colors and hover states.",
-            "dependencies": [
-              "4.1"
-            ],
-            "details": "Style toggle buttons with bg-primary text-primary-foreground for active state and hover:bg-accent hover:text-accent-foreground for interactions. Use rounded-lg for consistent corner rounding.",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 3,
-            "title": "Process and Distribute Contract Services with Brand Color Coding",
-            "description": "Parse contract data and algorithmically distribute recurring services using the CPM AI color palette for visual distinction.",
-            "dependencies": [
-              "4.1",
-              "4.2"
-            ],
-            "details": "Map service types to brand colors: primary green for mowing, secondary green for fertilization, accent green for cleanup. Use CSS variables to ensure theme consistency and dark mode support.\n<info added on 2025-08-28T05:05:37.482Z>\nEnhanced Service Color Mapping & Distribution Algorithm\n\n**Implemented Brand Color Coding:**\n- Mapped all 8 service types to CPM AI's green/beige theme using CSS variables\n- Primary services (Weekly/Bi-weekly Mowing) use main green palette (bg-primary, bg-chart-3)\n- Maintenance services (Fertilization, Irrigation) use secondary green palette (bg-chart-1, bg-chart-2)\n- Seasonal services (Cleanup, Leaf Removal, etc.) use accent colors (bg-secondary, bg-accent, bg-chart-4, bg-chart-5)\n- All colors follow the established CSS variable system for light/dark mode consistency\n\n**Enhanced Service Distribution Algorithm:**\n- Weekly services: Intelligent 7-day intervals starting from random day 1-7\n- Bi-weekly services: 14-day intervals with proper spacing\n- Other services: Even distribution with randomization + weekend avoidance for commercial services\n- Avoids Sundays for most services except cleanup (more realistic scheduling)\n\n**Technical Implementation:**\n- Created getServiceTypeColor() function with full CSS class strings\n- Created getServiceDotColor() function for calendar day indicators\n- Updated CustomDayButton to use proper brand colors for service dots\n- All colors use CSS variables ensuring theme consistency and dark mode support\n- Maintains existing Framer Motion animations and responsive design\n\n**Visual Result:**\n- Calendar days show color-coded dots representing different service types\n- Each service type has a distinct, brand-appropriate color from the green palette\n- Colors automatically adapt to light/dark mode via CSS variables\n- Service distribution appears more realistic and professional\n</info added on 2025-08-28T05:05:37.482Z>",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 4,
-            "title": "Apply Themed Color Coding and Styled Tooltips",
-            "description": "Visualize service types using the custom green palette and add hover tooltips with proper theme styling.",
-            "dependencies": [
-              "4.1",
-              "4.2",
-              "4.3"
-            ],
-            "details": "Use bg-popover text-popover-foreground for tooltips with border-border styling. Implement smooth hover transitions and ensure accessibility with proper contrast ratios.\n<info added on 2025-08-28T05:07:42.706Z>\nCOMPLETED: Enhanced Themed Color Coding & Professional Tooltips\n\nImplemented Themed Tooltip System:\n- Updated shadcn tooltip component to use bg-popover text-popover-foreground with border-border styling\n- Added shadow-md for proper depth and visual hierarchy\n- Replaced basic title attributes with rich, interactive Radix UI tooltips\n- All tooltips follow the established CSS variable system for light/dark mode consistency\n\nEnhanced Calendar Day Tooltips:\n- Calendar days with services show detailed tooltip on hover\n- Tooltips display service count, service types with color dots, and client names\n- Proper truncation for multiple services (+X more services)\n- Smooth hover transitions with hover:bg-accent hover:text-accent-foreground\n- Larger service dots (1.5px) with shadow-sm for better visibility\n\nAdded Service Type Legend:\n- Interactive legend showing all 8 service types with their brand colors\n- Grid layout responsive (2 cols mobile, 4 cols desktop)\n- Each legend item has hover effects and explanatory tooltips\n- Helps users understand the color coding system at a glance\n\nEnhanced Selected Date Details:\n- Service cards now use bg-card with proper border styling\n- Added color dots matching the calendar indicators\n- Improved layout with service badges and client information\n- Rich tooltips showing full contract details on hover\n- Smooth hover animations with Framer Motion integration\n\nAccessibility & UX Improvements:\n- Proper contrast ratios using CSS variables\n- Keyboard navigation support via Radix UI\n- Screen reader friendly with semantic HTML\n- Smooth transitions (duration-200) for all interactive elements\n- Cursor help indicators for interactive legend items\n\nTechnical Implementation:\n- All colors use CSS variables ensuring theme consistency\n- TooltipProvider wrapping for proper context\n- Responsive design with mobile-first approach\n- Maintains existing Framer Motion animations\n- Zero accessibility violations with proper ARIA support\n</info added on 2025-08-28T05:07:42.706Z>",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 5,
-            "title": "Add Click Handlers with Themed Interactive States",
-            "description": "Enable date selection via click events with proper theme-based visual feedback and React state management.",
-            "dependencies": [
-              "4.1",
-              "4.2",
-              "4.3",
-              "4.4"
-            ],
-            "details": "Implement click handlers with hover:bg-accent hover:text-accent-foreground states. Use bg-primary text-primary-foreground for selected dates and ensure smooth transitions.\n<info added on 2025-08-28T05:10:52.341Z>\nCOMPLETED: Enhanced Click Handlers with Themed Interactive States\n\n**Implemented Advanced Click Handling:**\n- Custom handleClick function with visual feedback and haptic support\n- Proper date selection state management with smooth transitions\n- Enhanced button states: selected, today, with-events, and regular days\n- Mobile haptic feedback for better user experience (navigator.vibrate)\n\n**Enhanced Visual States & Theming:**\n- Selected dates: bg-primary text-primary-foreground with shadow-md and scale-105\n- Today's date: bg-accent text-accent-foreground with border-2 border-primary/30\n- Days with services: bg-secondary/30 with enhanced hover effects\n- Regular days: standard hover:bg-accent hover:text-accent-foreground\n- All states use smooth transition-all duration-200 with transform effects\n\n**Interactive Service Type Filtering:**\n- Added filteredServiceTypes state for dynamic calendar filtering\n- Clickable legend items with toggle functionality\n- Visual feedback for active filters (bg-primary with ring effects)\n- Clear filters button with count display\n- Real-time calendar updates based on selected service types\n- Animated filter status messages\n\n**Enhanced View Toggle Controls:**\n- Segmented control design with bg-muted container\n- Active state: bg-primary text-primary-foreground with scale-105\n- Inactive state: hover:bg-accent hover:text-accent-foreground with scale-102\n- Smooth transitions and visual feedback for mode switching\n\n**Advanced Calendar Day Interactions:**\n- Multi-state button styling based on selection, today, and event status\n- Animated service dots with staggered entrance animations\n- Ring effects on selected day service dots\n- Today indicator dot for current date highlighting\n- Enhanced tooltips showing selection and today status\n\n**Accessibility & UX Improvements:**\n- Proper keyboard navigation and focus states\n- Screen reader friendly state announcements\n- Smooth scale transforms for interactive feedback\n- Consistent hover states across all interactive elements\n- Visual hierarchy with shadows and borders\n\n**Technical Implementation:**\n- React state management for selection and filtering\n- CSS variables for consistent theming across all states\n- Framer Motion animations for service dots and status messages\n- TypeScript type safety for all event handlers\n- Performance optimized with proper event handling\n</info added on 2025-08-28T05:10:52.341Z>",
-            "status": "done",
-            "testStrategy": ""
-          },
-          {
-            "id": 6,
-            "title": "Integrate Framer Motion with Custom Theme Transitions",
-            "description": "Enhance user experience with animated transitions using Framer Motion and custom CSS variables for consistent styling.",
-            "dependencies": [
-              "4.2"
-            ],
-            "details": "Apply Framer Motion animations that respect the custom --radius variable and use theme colors for transition states. Ensure animations work in both light and dark modes.",
-            "status": "done",
-            "testStrategy": ""
-          }
-        ]
+        "dependencies": [
+          13
+        ],
+        "status": "pending",
+        "subtasks": []
       },
       {
-        "id": 5,
-        "title": "Create Static Daily Mission Control Dashboard UI with Complete Configuration Standards",
-        "description": "Build the daily dashboard interface with crew cards, job timelines, and metrics display using the established configuration standards including PostCSS, Tailwind TypeScript config, Shadcn 'new-york' style, and mandatory CSS variable usage",
-        "status": "done",
-        "dependencies": [
-          2,
-          3
-        ],
-        "priority": "medium",
-        "details": "Create /components/dashboard/DailyDashboard.tsx following AppShell wrapper pattern with bg-background text-foreground. Build CrewCard component using bg-card text-card-foreground border-border with Shadcn Card components. Create JobCard component with proper CSS variable integration and responsive design patterns. Implement MetricsPanel using chart-1 through chart-5 gradient system. Use established Geist font classes and responsive spacing patterns (space-y-4 md:space-y-6). Add themed placeholder for map area with bg-muted styling and proper container structure (max-w-7xl mx-auto).",
-        "testStrategy": "Test dashboard renders with hardcoded data using mandatory CSS variables. Verify all components follow 'new-york' Shadcn styling. Ensure metrics panel uses chart color variables correctly. Test responsive layout with established breakpoint system and verify TypeScript compilation with tailwind.config.ts.",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Create DailyDashboard.tsx with Mandatory Configuration Standards",
-            "description": "Set up /components/dashboard/DailyDashboard.tsx following the established AppShell pattern with mandatory CSS variables and responsive design.",
-            "dependencies": [],
-            "details": "Use bg-background text-foreground for base layout, implement responsive design with established breakpoints (sm:, md:, lg:, xl:), apply proper spacing patterns (p-3 sm:p-4 md:p-6 lg:p-8), and ensure Geist font integration with font-sans class.\n<info added on 2025-08-28T05:13:06.358Z>\nCOMPLETED: DailyDashboard.tsx with Mandatory Configuration Standards\n\nImplemented Complete Configuration Standards:\n- Created /components/dashboard/DailyDashboard.tsx following AppShell pattern\n- Applied bg-background text-foreground for base layout with font-sans class\n- Implemented responsive design with established breakpoints (sm:, md:, lg:, xl:)\n- Applied proper spacing patterns: p-3 sm:p-4 md:p-6 lg:p-8 and space-y-4 md:space-y-6 lg:space-y-8\n- Used max-w-7xl mx-auto container structure for consistent layout\n\nCSS Variable Integration:\n- All colors use mandatory CSS variables: bg-card text-card-foreground border-border\n- Hover states: hover:bg-accent hover:text-accent-foreground with transition-colors duration-200\n- Status indicators with bg-primary/10 text-primary border-primary/20\n- Chart color system integration: text-chart-1 through text-chart-4 for stats\n- Muted styling: bg-muted/50 for placeholders and bg-muted for map area\n\nComponent Architecture:\n- Modular structure with clear placeholder sections for future subtasks\n- Framer Motion animations following established patterns (containerVariants, itemVariants, cardVariants)\n- Proper TypeScript interfaces and component props\n- Shadcn 'new-york' style components (Card, Badge, Button) with CSS variables\n\nResponsive Design Implementation:\n- Mobile-first approach with progressive enhancement\n- Grid layouts: grid-cols-2 sm:grid-cols-4 for stats, grid-cols-1 xl:grid-cols-3 for main layout\n- Responsive text sizing: text-2xl sm:text-3xl for headers\n- Flexible spacing and padding across all breakpoints\n- Aspect ratio handling: aspect-square sm:aspect-video lg:aspect-square for map\n\nDashboard Structure:\n- Header with date formatting and status badge\n- Quick stats grid with icon integration (Lucide React)\n- Main content areas with clear placeholders for CrewCard (5.2), JobCard (5.3), MetricsPanel (5.4)\n- Themed map placeholder with proper styling\n- Quick actions section with consistent button styling\n\nTechnical Excellence:\n- Zero linting errors with proper entity escaping\n- TypeScript type safety throughout\n- Performance optimized with proper animation patterns\n- Accessibility compliant with semantic HTML structure\n- Build successful with all configuration standards verified\n</info added on 2025-08-28T05:13:06.358Z>",
-            "status": "done",
-            "testStrategy": "Verify component compiles with tailwind.config.ts and uses mandatory CSS variables correctly"
-          },
-          {
-            "id": 2,
-            "title": "Build CrewCard Component with Shadcn 'New-York' Style",
-            "description": "Develop CrewCard component using established Shadcn configuration with 'new-york' style, CSS variables enabled, and proper TypeScript interfaces.",
-            "dependencies": [
-              "5.1"
-            ],
-            "details": "Use bg-card text-card-foreground border-border for card styling, implement hover:bg-accent hover:text-accent-foreground states, apply transition-colors duration-200 for smooth interactions, and ensure proper TypeScript type safety.\n<info added on 2025-08-28T05:16:34.535Z>\nCOMPLETED: CrewCard Component with Shadcn 'New-York' Style\n\n**Implemented Complete Shadcn 'New-York' Style Integration:**\n- Created /components/dashboard/CrewCard.tsx following established configuration standards\n- Used bg-card text-card-foreground border-border for card styling with proper CSS variables\n- Applied hover:bg-accent hover:text-accent-foreground states with transition-colors duration-200\n- Integrated shadcn avatar component with proper installation and configuration\n\n**Component Architecture & TypeScript:**\n- Comprehensive TypeScript interfaces with proper type safety\n- CrewCardProps interface with optional status, location, and job parameters\n- Proper typing for crew status ('active' | 'idle' | 'offline' | 'en-route')\n- Type-safe crew member mapping and avatar initials generation\n\n**Advanced Status System:**\n- Dynamic status styling using chart color variables (chart-1 through chart-4)\n- Status-specific border colors and indicators with proper theming\n- Visual status badges with appropriate color coding\n- Offline status handling with last-seen indicators\n\n**Crew Member Display:**\n- Avatar components with fallback initials using bg-primary/10 text-primary\n- Role-based color coding (Lead: text-chart-1, Assistant: text-chart-2, etc.)\n- Responsive member layout with proper truncation and spacing\n- Individual member cards with bg-muted/50 styling\n\n**Interactive Features:**\n- Action buttons (Call, Message, Navigate) with consistent hover states\n- Framer Motion animations following established patterns (cardVariants)\n- Proper button styling with hover:bg-accent hover:text-accent-foreground\n- Status indicators with animated dots and proper visual hierarchy\n\n**Real-time Status Display:**\n- Current location with MapPin icon integration\n- Active job display with completion estimates\n- Jobs completed counter with Badge components\n- En-route and offline status handling with appropriate messaging\n\n**CSS Variable Integration:**\n- All colors use mandatory CSS variables for theme consistency\n- Chart color system integration for status differentiation\n- Proper muted styling for secondary information\n- Destructive colors for offline/error states\n\n**Responsive Design:**\n- Mobile-first approach with flexible layouts\n- Proper spacing and padding following established patterns\n- Avatar sizing and member card responsiveness\n- Button group layouts with flex-1 distribution\n\n**DailyDashboard Integration:**\n- Successfully integrated CrewCard components into DailyDashboard\n- Dynamic crew data mapping with simulated statuses and locations\n- Staggered animation entrance with proper delay timing\n- Mock data integration showing all 4 crew teams with varied statuses\n\n**Technical Excellence:**\n- Zero linting errors with proper component structure\n- Build successful with all dependencies resolved\n- Performance optimized with proper animation patterns\n- Accessibility compliant with semantic HTML and proper ARIA support\n</info added on 2025-08-28T05:16:34.535Z>",
-            "status": "done",
-            "testStrategy": "Test component follows Shadcn 'new-york' styling and compiles with established TypeScript configuration"
-          },
-          {
-            "id": 3,
-            "title": "Build JobCard Component with CSS Variable Integration",
-            "description": "Create JobCard component following established component architecture with mandatory CSS variables and responsive patterns.",
-            "dependencies": [
-              "5.1"
-            ],
-            "details": "Apply bg-card text-card-foreground base styling, use bg-primary text-primary-foreground for primary actions, implement proper border-border usage, and ensure mobile-first responsive design with established breakpoints.\n<info added on 2025-08-28T05:24:42.245Z>\nCOMPLETED: JobCard Component with CSS Variable Integration\n\n**Implemented Complete JobCard Component Architecture:**\n- Created /components/dashboard/JobCard.tsx following established AppShell pattern\n- Applied bg-card text-card-foreground border-border for card styling with proper CSS variables\n- Used bg-primary text-primary-foreground for primary actions with consistent theming\n- Implemented mobile-first responsive design with established breakpoints\n\n**Component Features & TypeScript:**\n- Comprehensive TypeScript interfaces with JobCardProps and proper type safety\n- Dynamic priority styling using chart color variables (chart-1 through chart-4)\n- Status-specific styling with animated indicators and proper visual hierarchy\n- Equipment and materials display with truncation and overflow handling\n\n**Advanced Styling System:**\n- Priority-based border colors and indicators with chart color integration\n- Status badges with appropriate color coding (in-progress: chart-1, completed: chart-3, etc.)\n- Interactive hover states with hover:bg-accent hover:text-accent-foreground\n- Active job highlighting with ring-2 ring-primary ring-offset-2 styling\n\n**Job Information Display:**\n- Schedule information with formatted hours (e.g., \"2h 30m\") and time estimates\n- Equipment and materials lists with Badge components and overflow indicators\n- Service type integration with bg-primary/10 text-primary styling\n- Address display with MapPin icon and proper truncation\n\n**Interactive Features:**\n- Start/Pause toggle buttons with conditional styling (default vs outline variants)\n- Navigation and phone action buttons with consistent hover states\n- Active job indicator with animated pulse dot and chart-1 theming\n- Framer Motion animations following established patterns (cardVariants)\n\n**CSS Variable Integration:**\n- All colors use mandatory CSS variables for theme consistency\n- Chart color system integration for priority and status differentiation\n- Proper muted styling for secondary information (bg-muted/50)\n- Destructive colors for cancelled status with appropriate contrast\n\n**Responsive Design Implementation:**\n- Mobile-first approach with grid-cols-2 layout for job details\n- Flexible button layouts with flex-1 distribution for primary actions\n- Proper spacing and padding following established patterns (space-y-4, p-2, etc.)\n- Text truncation and overflow handling for long addresses and job titles\n\n**DailyDashboard Integration:**\n- Successfully integrated JobCard components into Job Timeline section\n- Dynamic job data mapping with simulated crew assignments and timing\n- Staggered animation entrance with proper delay timing (index * 0.1)\n- Mock data integration showing first 4 job tickets with varied statuses\n\n**Technical Excellence:**\n- Zero linting errors with proper component structure and TypeScript safety\n- Build successful with all dependencies resolved and CSS variables working\n- Performance optimized with proper animation patterns and conditional rendering\n- Accessibility compliant with semantic HTML and proper ARIA support\n- Proper icon integration from Lucide React with consistent sizing (w-4 h-4, w-5 h-5)\n\n**Configuration Standards Compliance:**\n- PostCSS pipeline compatibility verified through successful build\n- Tailwind TypeScript config integration with proper class usage\n- Shadcn 'new-york' style components with CSS variable theming\n- Geist font integration through font-sans class application\n</info added on 2025-08-28T05:24:42.245Z>",
-            "status": "done",
-            "testStrategy": "Verify component uses mandatory CSS variables and follows established responsive patterns"
-          },
-          {
-            "id": 4,
-            "title": "Implement MetricsPanel with Chart Color Variable System",
-            "description": "Develop MetricsPanel component using the established 5-level chart color system (chart-1 through chart-5) with proper CSS variable integration.",
-            "dependencies": [
-              "5.1"
-            ],
-            "details": "Use chart-1 through chart-5 variables for data visualization, apply bg-card text-card-foreground for panel styling, implement proper spacing with established patterns, and ensure accessibility with semantic HTML.\n<info added on 2025-08-28T05:28:47.864Z>\nCOMPLETED: MetricsPanel with Chart Color Variable System\n\n**Implemented Complete MetricsPanel Component Architecture:**\n- Created /components/dashboard/MetricsPanel.tsx using established 5-level chart color system\n- Applied bg-card text-card-foreground for panel styling with proper CSS variable integration\n- Used chart-1 through chart-5 variables for data visualization with proper theming\n- Implemented proper spacing with established patterns (space-y-4 md:space-y-6)\n\n**Chart Color System Integration:**\n- Daily Metrics using chart-1 through chart-5 for different metric types\n- Jobs Completed: chart-1 (primary green), Active Crews: chart-2, Revenue: chart-3\n- Route Efficiency: chart-4, Fuel Cost: chart-5 for comprehensive color differentiation\n- Performance Targets using chart colors for progress bars and indicators\n\n**Advanced Metrics Features:**\n- Daily metrics cards with trend indicators (TrendingUp/Down icons)\n- Change percentage display with color-coded backgrounds (chart-1/10, chart-4/10)\n- Performance targets with animated progress bars using chart color gradients\n- Summary stats grid with chart color integration for key indicators\n\n**Interactive Components:**\n- Hover animations following established cardVariants patterns\n- Staggered entrance animations with proper delay timing (index * 0.1)\n- Progress bar animations with 1-second duration and staggered delays\n- Responsive grid layouts (grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2)\n\n**Data Visualization:**\n- Comprehensive metric tracking: jobs completed, active crews, revenue, efficiency, fuel cost\n- Performance targets with progress indicators and target comparisons\n- Status indicators with proper chart color theming and visual hierarchy\n- Real-time style indicators with animated pulse dots\n\n**CSS Variable Integration:**\n- All colors use mandatory CSS variables for theme consistency\n- Chart color system (chart-1 through chart-5) properly integrated throughout\n- Proper muted styling for secondary information (bg-muted/50, text-muted-foreground)\n- Gradient backgrounds using chart colors with proper opacity levels\n\n**Responsive Design Implementation:**\n- Mobile-first approach with flexible grid layouts\n- Proper spacing and padding following established patterns\n- Card layouts that adapt to different screen sizes\n- Icon sizing consistency (w-4 h-4 for metrics, w-5 h-5 for headers)\n\n**DailyDashboard Integration:**\n- Successfully integrated MetricsPanel into Performance Metrics section\n- Replaced placeholder content with fully functional metrics display\n- Proper component nesting within existing Card structure\n- Maintains established animation and styling patterns\n\n**Technical Excellence:**\n- Zero linting errors with proper TypeScript interfaces and type safety\n- Build successful with all chart color variables rendering correctly\n- Performance optimized with proper animation patterns and conditional rendering\n- Accessibility compliant with semantic HTML structure and proper ARIA support\n- Proper icon integration from Lucide React with consistent sizing\n\n**Accessibility & Semantic HTML:**\n- Proper heading hierarchy and semantic structure\n- Color contrast compliance with chart color variables\n- Screen reader friendly with descriptive text and proper labeling\n- Keyboard navigation support through proper button and interactive elements\n\n**Configuration Standards Compliance:**\n- PostCSS pipeline compatibility verified through successful build\n- Tailwind TypeScript config integration with proper class usage\n- Shadcn 'new-york' style components with CSS variable theming\n- Established spacing patterns and responsive breakpoints maintained\n</info added on 2025-08-28T05:28:47.864Z>",
-            "status": "done",
-            "testStrategy": "Test chart colors render correctly with established CSS variable system and verify accessibility compliance"
-          },
-          {
-            "id": 5,
-            "title": "Apply Complete Configuration Standards and Add Themed Map Placeholder",
-            "description": "Integrate all established configuration standards including PostCSS pipeline, container patterns, and create properly styled map placeholder area.",
-            "dependencies": [
-              "5.1",
-              "5.2",
-              "5.3",
-              "5.4"
-            ],
-            "details": "Use bg-muted for map placeholder, apply max-w-7xl mx-auto container structure, implement established spacing patterns (space-y-4 md:space-y-6 lg:space-y-8), and ensure compilation with postcss.config.mjs pipeline.\n<info added on 2025-08-28T05:30:11.294Z>\nCOMPLETED: Complete Configuration Standards and Themed Map Placeholder\n\n**Implemented Final Integration & Configuration Standards:**\n- Enhanced map placeholder with comprehensive themed styling using bg-muted for base\n- Applied max-w-7xl mx-auto container structure throughout DailyDashboard\n- Implemented established spacing patterns (space-y-4 md:space-y-6 lg:space-y-8)\n- Verified compilation with postcss.config.mjs pipeline - build successful\n\n**Enhanced Map Placeholder Features:**\n- Sophisticated layered design with gradient background (from-muted via-muted/80 to-muted/60)\n- Simulated route lines using chart color opacity (chart-1/30, chart-2/30, chart-3/30)\n- Live crew location markers with chart color coding (chart-1 through chart-4)\n- Interactive map controls with proper backdrop-blur-sm and hover states\n\n**Advanced Visual Elements:**\n- Crew markers with animated pulse dots and backdrop-blur-sm glass effect\n- Map controls overlay with zoom in/out buttons using proper variant styling\n- Live updates indicator with chart-1 animated pulse dot\n- Center map icon with shadow-lg and proper backdrop blur effects\n\n**CSS Variable Integration Excellence:**\n- All colors use mandatory CSS variables (bg-card/90, text-foreground, border-border)\n- Chart color system integration for crew differentiation and route visualization\n- Proper muted styling (bg-muted, text-muted-foreground) for map background\n- Backdrop blur effects (backdrop-blur-sm) with proper opacity levels\n\n**Responsive Design Implementation:**\n- Aspect ratio handling: aspect-square sm:aspect-video lg:aspect-square for map\n- Proper positioning with absolute layouts and responsive spacing\n- Mobile-friendly crew marker sizing and positioning\n- Flexible overlay controls that adapt to different screen sizes\n\n**PostCSS Pipeline Verification:**\n- Successful build with postcss.config.mjs configuration\n- Tailwind CSS compilation working correctly with all custom classes\n- Autoprefixer integration verified through build process\n- All CSS variables and chart colors rendering properly\n\n**Container Structure Standards:**\n- max-w-7xl mx-auto container structure applied throughout dashboard\n- Proper spacing patterns (p-3 sm:p-4 md:p-6 lg:p-8) maintained\n- Responsive grid layouts (grid-cols-1 xl:grid-cols-3) working correctly\n- Established breakpoint system (sm:, md:, lg:, xl:) functioning properly\n\n**Component Integration Excellence:**\n- All components (CrewCard, JobCard, MetricsPanel) successfully integrated\n- Consistent animation patterns using Framer Motion throughout\n- Proper component exports through dashboard index file\n- TypeScript compilation successful with all type safety maintained\n\n**Technical Excellence & Build Verification:**\n- Zero linting errors across all dashboard components\n- Build successful with all dependencies resolved\n- Performance optimized with proper animation patterns\n- Accessibility compliant with semantic HTML structure\n- All Shadcn 'new-york' style components working correctly\n\n**Configuration Standards Compliance:**\n- PostCSS pipeline (tailwindcss, autoprefixer) working correctly\n- Tailwind TypeScript config integration verified\n- Shadcn components.json configuration properly applied\n- Geist font integration through font-sans class maintained\n- All mandatory CSS variables functioning across light/dark themes\n</info added on 2025-08-28T05:30:11.294Z>",
-            "status": "done",
-            "testStrategy": "Verify complete build pipeline works with PostCSS/Tailwind configuration and all CSS variables render correctly"
-          }
-        ]
-      },
-      {
-        "id": 6,
-        "title": "Integrate Interactive Map with Complete Configuration Standards and CSS Variables",
-        "description": "Add Mapbox integration following established configuration standards with mandatory CSS variable usage, Shadcn 'new-york' styling, and proper TypeScript interfaces",
-        "status": "done",
-        "dependencies": [
-          2,
-          5
-        ],
+        "id": 15,
+        "title": "Build Ticket Status Management and Lifecycle",
+        "description": "Implement the New -> Open -> Closed status progression with automatic reopening logic and audit trail logging",
+        "details": "Create status transition handlers with validation rules: New->Open (on assignment), Open->Closed (with required reason), Closed->Open (on customer reply). Implement automatic reopening when public messages are received on closed tickets. Log all status changes as WorkOrderEvents with actor, timestamp, and metadata. Increment reopen_count on automatic reopening.\n\n```javascript\nclass WorkOrderStatusManager {\n  async transitionStatus(workOrderId, newStatus, actor, reason = null) {\n    const workOrder = await this.getWorkOrder(workOrderId);\n    this.validateTransition(workOrder.status, newStatus);\n    \n    await this.updateStatus(workOrderId, newStatus);\n    await this.logEvent('status_changed', workOrderId, actor, { from: workOrder.status, to: newStatus, reason });\n  }\n}\n```",
+        "testStrategy": "Test all valid status transitions, verify invalid transitions are rejected, confirm automatic reopening triggers correctly, and validate audit trail completeness.",
         "priority": "high",
-        "details": "Install and configure react-map-gl with established TypeScript configuration. Create /components/dashboard/RouteMap.tsx following component architecture standards with bg-card text-card-foreground styling. Configure Mapbox with proper environment variables and PostCSS pipeline integration. Implement themed markers using established chart color variables (chart-1 through chart-5). Draw route polylines with mandatory CSS variable colors. Add popup tooltips using bg-popover text-popover-foreground border-border styling. Apply responsive container patterns (max-w-7xl mx-auto) and proper spacing.",
-        "testStrategy": "Verify map compiles with established TypeScript configuration and uses mandatory CSS variables. Test markers and popups follow Shadcn 'new-york' styling. Validate responsive behavior with established breakpoint system. Ensure PostCSS pipeline processes map styles correctly.",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Install and Configure react-map-gl with Established TypeScript Standards",
-            "description": "Install react-map-gl and mapbox-gl packages following established configuration standards with proper TypeScript integration.",
-            "dependencies": [],
-            "details": "Install packages with proper version compatibility, configure with tailwind.config.ts integration, set up environment variables following established patterns, and ensure PostCSS pipeline processes map CSS correctly.",
-            "status": "done",
-            "testStrategy": "Verify packages install and compile with established TypeScript configuration"
-          },
-          {
-            "id": 2,
-            "title": "Create RouteMap.tsx with Mandatory CSS Variable Usage",
-            "description": "Develop /components/dashboard/RouteMap.tsx following established component architecture with mandatory CSS variables and responsive patterns.",
-            "dependencies": [
-              "6.1"
-            ],
-            "details": "Use bg-card text-card-foreground for container styling, apply border-border for map boundaries, implement responsive design with established breakpoints, and ensure proper TypeScript interfaces with type safety.",
-            "status": "done",
-            "testStrategy": "Test component follows established architecture and uses mandatory CSS variables correctly"
-          },
-          {
-            "id": 3,
-            "title": "Implement Job Location Markers with Chart Color Variables",
-            "description": "Render map markers using established chart color system (chart-1 through chart-5) with proper CSS variable integration and accessibility.",
-            "dependencies": [
-              "6.2"
-            ],
-            "details": "Use chart-1 through chart-5 for crew differentiation, ensure markers follow established color psychology (green for growth/nature), implement proper hover states with transition-colors duration-200, and maintain WCAG compliance.",
-            "status": "done",
-            "testStrategy": "Verify markers use established chart color variables and maintain accessibility standards"
-          },
-          {
-            "id": 4,
-            "title": "Draw Polylines with Mandatory CSS Variable Colors",
-            "description": "Draw route polylines using established CSS variable system with proper color integration and responsive behavior.",
-            "dependencies": [
-              "6.3"
-            ],
-            "details": "Use bg-primary and chart color variables for route visualization, ensure proper contrast ratios for accessibility, apply established animation patterns with Framer Motion integration, and maintain responsive performance.",
-            "status": "done",
-            "testStrategy": "Test polylines render with mandatory CSS variables and maintain performance across breakpoints"
-          },
-          {
-            "id": 5,
-            "title": "Add Popup Tooltips with Shadcn 'New-York' Styling",
-            "description": "Implement popups following established Shadcn configuration with 'new-york' style, CSS variables enabled, and proper accessibility.",
-            "dependencies": [
-              "6.3"
-            ],
-            "details": "Style popups with bg-popover text-popover-foreground, use border-border for boundaries, apply established border radius patterns, implement proper focus states for accessibility, and ensure semantic HTML structure.",
-            "status": "done",
-            "testStrategy": "Verify popups follow Shadcn 'new-york' styling and meet accessibility requirements"
-          },
-          {
-            "id": 6,
-            "title": "Ensure Complete Configuration Standards Compliance",
-            "description": "Optimize map component for full compliance with established configuration standards including PostCSS pipeline, TypeScript compilation, and responsive patterns.",
-            "dependencies": [
-              "6.2",
-              "6.3",
-              "6.4",
-              "6.5"
-            ],
-            "details": "Test compilation with postcss.config.mjs pipeline, verify TypeScript type safety with tailwind.config.ts, ensure responsive behavior with established breakpoint system, and validate CSS variable usage across all map elements.",
-            "status": "done",
-            "testStrategy": "Verify complete build pipeline works and all configuration standards are met"
-          }
-        ]
+        "dependencies": [
+          13
+        ],
+        "status": "pending",
+        "subtasks": []
       },
       {
-        "id": 7,
-        "title": "Connect Calendar Navigation with Complete Configuration Standards and AppShell Integration",
-        "description": "Implement routing logic following established configuration standards with mandatory CSS variables, proper TypeScript interfaces, and AppShell wrapper integration using Geist fonts and responsive patterns",
-        "status": "done",
-        "dependencies": [
-          4,
-          5,
-          6
-        ],
+        "id": 16,
+        "title": "Develop Assignment System and Notifications",
+        "description": "Create ticket assignment functionality with auto-watching for site managers and comprehensive notification system",
+        "details": "Implement assignment logic that changes New tickets to Open status. Create auto-watching system that adds all site managers as watchers on ticket creation. Build notification service supporting in-app, push, email, and SMS fallbacks. Handle notification types: work_order.created, work_order.assigned, work_order.reopened. Implement notification preferences and delivery tracking.\n\n```javascript\nclass AssignmentService {\n  async assignTicket(workOrderId, assigneeId, assignerId) {\n    await this.updateOwner(workOrderId, assigneeId);\n    await this.transitionToOpen(workOrderId);\n    await this.notifyAssignee(assigneeId, workOrderId);\n    await this.logAssignmentEvent(workOrderId, assignerId, assigneeId);\n  }\n}\n```",
+        "testStrategy": "Verify assignment changes status correctly, confirm all site managers become watchers, test notification delivery across all channels, and validate notification preferences.",
         "priority": "medium",
-        "details": "Create React Context following established TypeScript patterns with proper type safety. Update StrategicCalendar using mandatory CSS variables (hover:bg-accent hover:text-accent-foreground). Implement getDailySchedule(date) with bg-muted loading states and proper error handling. Update DailyDashboard to use AppShell wrapper with bg-background text-foreground transitions. Add loading states using chart color variables and error handling with proper contrast ratios. Implement breadcrumb navigation with established spacing patterns (space-y-4 md:space-y-6). Use Framer Motion with established animation variants and CSS variable integration.",
-        "testStrategy": "Test calendar navigation compiles with established TypeScript configuration and uses mandatory CSS variables. Verify AppShell integration works correctly with responsive patterns. Ensure loading states use chart color variables properly. Test error handling maintains accessibility standards with proper contrast ratios.",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Set Up React Context with Established TypeScript Standards",
-            "description": "Create React Context following established configuration standards with proper TypeScript interfaces and CSS variable integration.",
-            "dependencies": [],
-            "details": "Implement Context with proper TypeScript type safety, use established interface patterns from /types/index.ts, integrate with mandatory CSS variables for state-dependent styling, and ensure compilation with tailwind.config.ts.",
-            "status": "done",
-            "testStrategy": "Verify Context compiles with established TypeScript configuration and follows type safety standards"
-          },
-          {
-            "id": 2,
-            "title": "Update StrategicCalendar with Mandatory CSS Variable Usage",
-            "description": "Modify StrategicCalendar component to use established CSS variables with proper hover states and responsive behavior.",
-            "dependencies": [
-              "7.1"
-            ],
-            "details": "Apply hover:bg-accent hover:text-accent-foreground for interactions, use bg-primary text-primary-foreground for selected states, implement transition-colors duration-200 for smooth animations, and ensure responsive design with established breakpoints.",
-            "status": "done",
-            "testStrategy": "Test calendar uses mandatory CSS variables and follows established interaction patterns"
-          },
-          {
-            "id": 3,
-            "title": "Implement getDailySchedule with Chart Color Loading States",
-            "description": "Develop getDailySchedule(date) function using established chart color variables for loading and error states with proper accessibility.",
-            "dependencies": [
-              "7.2"
-            ],
-            "details": "Use chart-1 through chart-5 for loading indicators, implement proper error styling with good contrast ratios, apply bg-muted for loading backgrounds, and ensure WCAG compliance with semantic HTML.",
-            "status": "done",
-            "testStrategy": "Verify function uses chart color variables correctly and maintains accessibility standards"
-          },
-          {
-            "id": 4,
-            "title": "Update DailyDashboard with AppShell Integration and CSS Variables",
-            "description": "Refactor DailyDashboard to use established AppShell wrapper with mandatory CSS variables and responsive patterns.",
-            "dependencies": [
-              "7.3"
-            ],
-            "details": "Apply AppShell wrapper pattern, use bg-background text-foreground for base styling, implement established container patterns (max-w-7xl mx-auto), apply proper spacing (p-3 sm:p-4 md:p-6 lg:p-8), and ensure Geist font integration.",
-            "status": "done",
-            "testStrategy": "Test dashboard integrates properly with AppShell and uses established responsive patterns"
-          },
-          {
-            "id": 5,
-            "title": "Add Complete Configuration Standards for Navigation Elements",
-            "description": "Implement comprehensive navigation UI following all established configuration standards with proper accessibility and responsive behavior.",
-            "dependencies": [
-              "7.4"
-            ],
-            "details": "Style breadcrumbs with bg-muted text-muted-foreground, use established spacing patterns (space-y-4 md:space-y-6 lg:space-y-8), implement proper error colors with WCAG compliance, apply Framer Motion with established animation variants, and ensure TypeScript type safety.",
-            "status": "done",
-            "testStrategy": "Verify all navigation elements follow established configuration standards and compile correctly"
-          }
-        ]
+        "dependencies": [
+          15
+        ],
+        "status": "pending",
+        "subtasks": []
       },
       {
-        "id": 8,
-        "title": "Implement Drag-and-Drop with Complete Configuration Standards and Shadcn Integration",
-        "description": "Add interactive drag-and-drop functionality following established configuration standards with mandatory CSS variables, Shadcn 'new-york' styling, proper TypeScript interfaces, and Framer Motion integration",
-        "status": "done",
+        "id": 17,
+        "title": "Build Manager View - 'My Communities'",
+        "description": "Create the primary manager dashboard showing New and Open tickets for assigned communities with quick actions",
+        "details": "Build responsive dashboard component displaying tickets filtered by user's site assignments. Implement quick actions: Assign (dropdown with team members), Close (with reason modal), Reply (inline composer), Add Internal Note. Include sorting, filtering, and search functionality. Show ticket metadata: status, priority, last activity, customer info. Implement real-time updates using WebSockets or Server-Sent Events.\n\n```jsx\nfunction MyCommunitiesView() {\n  const { tickets, loading } = useManagerTickets();\n  \n  return (\n    <TicketList>\n      {tickets.map(ticket => (\n        <TicketCard key={ticket.id} ticket={ticket}>\n          <QuickActions\n            onAssign={(userId) => assignTicket(ticket.id, userId)}\n            onClose={(reason) => closeTicket(ticket.id, reason)}\n            onReply={(message) => replyToTicket(ticket.id, message)}\n          />\n        </TicketCard>\n      ))}\n    </TicketList>\n  );\n}\n```",
+        "testStrategy": "Test filtering by site assignments, verify quick actions work correctly, confirm real-time updates, and validate responsive design across devices.",
+        "priority": "medium",
         "dependencies": [
-          5,
-          7
+          16
         ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Build Individual View - 'My Work'",
+        "description": "Create personalized dashboard with sections for Newly Assigned, Reopened, and All Open tickets assigned to the user",
+        "details": "Develop user-specific dashboard with three distinct sections using tabs or accordion layout. Implement smart sorting: Newly Assigned (by assignment date), Reopened to Me (by reopen date), All Open (by last activity). Add visual indicators for reopened tickets (badges, highlighting). Include ticket preview with customer info, site details, and last message snippet. Implement infinite scroll or pagination for performance.\n\n```jsx\nfunction MyWorkView() {\n  const { newlyAssigned, reopened, allOpen } = useMyWorkTickets();\n  \n  return (\n    <TabContainer>\n      <Tab label={`Newly Assigned (${newlyAssigned.length})`}>\n        <TicketSection tickets={newlyAssigned} showNewBadge />\n      </Tab>\n      <Tab label={`Reopened (${reopened.length})`}>\n        <TicketSection tickets={reopened} showReopenedBadge />\n      </Tab>\n      <Tab label={`All Open (${allOpen.length})`}>\n        <TicketSection tickets={allOpen} />\n      </Tab>\n    </TabContainer>\n  );\n}\n```",
+        "testStrategy": "Verify correct ticket categorization, test badge visibility for reopened tickets, confirm sorting accuracy, and validate performance with large ticket volumes.",
+        "priority": "medium",
+        "dependencies": [
+          16
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Build Coverage View - 'Branch Open by Property'",
+        "description": "Create branch-level oversight view showing all Open tickets grouped by community/property for coverage managers",
+        "details": "Implement hierarchical view grouping tickets by property/community within user's branch. Show ticket counts per property, expandable sections, and summary statistics. Include branch-level filtering and search capabilities. Add bulk actions for coverage scenarios. Implement property-level metrics (average response time, ticket volume trends).\n\n```jsx\nfunction CoverageView() {\n  const { propertiesWithTickets } = useBranchTickets();\n  \n  return (\n    <PropertyGroupContainer>\n      {propertiesWithTickets.map(property => (\n        <PropertySection key={property.id} property={property}>\n          <PropertyHeader>\n            {property.name} ({property.openTickets.length})\n          </PropertyHeader>\n          <ExpandableTicketList tickets={property.openTickets} />\n        </PropertySection>\n      ))}\n    </PropertyGroupContainer>\n  );\n}\n```",
+        "testStrategy": "Test branch-based filtering, verify property grouping accuracy, confirm expandable sections work correctly, and validate bulk action functionality.",
+        "priority": "medium",
+        "dependencies": [
+          16
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Implement Unified Communication Thread",
+        "description": "Build chronological timeline displaying all messages, internal notes, and system events with proper visibility controls",
+        "details": "Create timeline component showing WorkOrderMessages and WorkOrderEvents in chronological order. Implement visibility controls (public/internal) with clear visual distinction. Add message composition with rich text editor, attachment support, and visibility toggle. Include system event formatting (assignments, status changes) with proper icons and descriptions. Support message threading and replies.\n\n```jsx\nfunction CommunicationTimeline({ workOrderId }) {\n  const { messages, events } = useWorkOrderCommunication(workOrderId);\n  const timeline = mergeCommunicationItems(messages, events);\n  \n  return (\n    <TimelineContainer>\n      {timeline.map(item => (\n        <TimelineItem key={item.id} type={item.type}>\n          {item.type === 'message' ? (\n            <MessageBubble message={item} />\n          ) : (\n            <SystemEvent event={item} />\n          )}\n        </TimelineItem>\n      ))}\n      <MessageComposer onSend={sendMessage} />\n    </TimelineContainer>\n  );\n}\n```",
+        "testStrategy": "Test chronological ordering, verify visibility controls work correctly, confirm attachment handling, and validate system event display formatting.",
+        "priority": "medium",
+        "dependencies": [
+          15
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 21,
+        "title": "Implement Offline Queue and Synchronization",
+        "description": "Build outbox queue system for offline actions with optimistic UI and automatic sync when connectivity returns",
+        "details": "Create offline action queue using IndexedDB to store pending operations (replies, assignments, status changes, photo uploads). Implement optimistic UI updates that immediately reflect changes locally. Build sync service that processes queue when online, handling server timestamps and conflict resolution. Add connection status indicator and sync progress feedback.\n\n```javascript\nclass OfflineQueue {\n  async queueAction(action) {\n    await this.db.actions.add({\n      id: generateId(),\n      type: action.type,\n      payload: action.payload,\n      timestamp: Date.now(),\n      status: 'pending'\n    });\n    this.updateUIOptimistically(action);\n  }\n  \n  async syncWhenOnline() {\n    const pendingActions = await this.db.actions.where('status').equals('pending').toArray();\n    for (const action of pendingActions) {\n      await this.syncAction(action);\n    }\n  }\n}\n```",
+        "testStrategy": "Test offline action queuing, verify optimistic UI updates, confirm sync accuracy when online, and validate conflict resolution scenarios.",
         "priority": "high",
-        "details": "Install @dnd-kit packages following established dependency management. Create DraggableJobCard component using bg-card text-card-foreground with proper TypeScript interfaces. Implement drop zones with hover:bg-accent styling and border-border highlights following Shadcn 'new-york' patterns. Add visual feedback using chart color variables (chart-1 through chart-5) with proper accessibility. Create handleJobMove function with bg-primary success states and proper error handling. Implement optimistic UI updates with established animation variants. Apply responsive design with established breakpoint system and container patterns.",
-        "testStrategy": "Test drag-and-drop compiles with established TypeScript configuration and uses mandatory CSS variables. Verify drop zones follow Shadcn 'new-york' styling patterns. Ensure visual feedback uses chart color variables correctly. Test responsive behavior with established breakpoint system and verify accessibility compliance.",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Install and Configure Drag-and-Drop with Established Standards",
-            "description": "Install @dnd-kit packages following established configuration standards with proper TypeScript integration and CSS variable setup.",
-            "dependencies": [],
-            "details": "Install libraries with version compatibility for established build pipeline, configure DndContext with proper TypeScript interfaces, set up CSS variables for drag states, and ensure PostCSS pipeline processes drag-and-drop styles correctly.",
-            "status": "done",
-            "testStrategy": "Verify packages install and compile with established TypeScript and PostCSS configuration"
-          },
-          {
-            "id": 2,
-            "title": "Create DraggableJobCard with Mandatory CSS Variables and TypeScript",
-            "description": "Develop DraggableJobCard component following established component architecture with mandatory CSS variables and proper type safety.",
-            "dependencies": [
-              "8.1"
-            ],
-            "details": "Use bg-card text-card-foreground for base styling, apply hover:bg-accent hover:text-accent-foreground states, implement transition-colors duration-200 for smooth interactions, ensure proper TypeScript interfaces, and integrate with Framer Motion using established animation variants.",
-            "status": "done",
-            "testStrategy": "Test component follows established architecture and compiles with TypeScript configuration"
-          },
-          {
-            "id": 3,
-            "title": "Implement Drop Zones with Shadcn 'New-York' Styling",
-            "description": "Set up drop zones following established Shadcn configuration with 'new-york' style, CSS variables enabled, and proper accessibility.",
-            "dependencies": [
-              "8.1",
-              "8.2"
-            ],
-            "details": "Use border-border for default state, hover:bg-accent for active zones, apply established border radius patterns, implement proper focus states for accessibility, ensure semantic HTML structure, and maintain WCAG compliance with proper contrast ratios.",
-            "status": "done",
-            "testStrategy": "Verify drop zones follow Shadcn 'new-york' styling and meet accessibility requirements"
-          },
-          {
-            "id": 4,
-            "title": "Add Visual Feedback with Chart Color Variables",
-            "description": "Implement visual cues using established chart color system (chart-1 through chart-5) with proper accessibility and responsive behavior.",
-            "dependencies": [
-              "8.2",
-              "8.3"
-            ],
-            "details": "Use chart-1 through chart-5 for active states, apply proper opacity values that maintain accessibility, implement smooth transitions with transition-colors duration-200, and ensure responsive behavior across established breakpoints.",
-            "status": "done",
-            "testStrategy": "Test visual feedback uses chart color variables correctly and maintains accessibility standards"
-          },
-          {
-            "id": 5,
-            "title": "Implement handleJobMove with Established CSS Variable Patterns",
-            "description": "Create handleJobMove function using mandatory CSS variables for state feedback with proper TypeScript type safety and error handling.",
-            "dependencies": [
-              "8.3",
-              "8.4"
-            ],
-            "details": "Use bg-primary text-primary-foreground for success states, implement proper error styling with good contrast ratios, apply established loading patterns with bg-muted, ensure TypeScript type safety with proper interfaces, and maintain accessibility with semantic feedback.",
-            "status": "done",
-            "testStrategy": "Verify function uses mandatory CSS variables and follows established TypeScript patterns"
-          },
-          {
-            "id": 6,
-            "title": "Add Framer Motion Integration with Configuration Standards",
-            "description": "Integrate Framer Motion animations following established animation variants and CSS variable integration with responsive behavior.",
-            "dependencies": [
-              "8.2",
-              "8.5"
-            ],
-            "details": "Apply established animation variants, use CSS variables for transition states, implement responsive animation behavior across breakpoints, ensure smooth performance with established optimization patterns, and maintain accessibility with reduced motion preferences.",
-            "status": "done",
-            "testStrategy": "Test animations follow established variants and work correctly across responsive breakpoints"
-          }
-        ]
+        "dependencies": [
+          12,
+          20
+        ],
+        "status": "pending",
+        "subtasks": []
       },
       {
-        "id": 9,
-        "title": "Add Dynamic Route Updates with Complete Configuration Standards and Chart Color Integration",
-        "description": "Implement real-time map route updates and metrics recalculation following established configuration standards with mandatory CSS variables, chart color system integration, and proper TypeScript interfaces",
-        "status": "done",
-        "dependencies": [
-          6,
-          8
-        ],
+        "id": 22,
+        "title": "Build File Attachment System with Offline Support",
+        "description": "Implement photo and file attachment functionality that works offline with local caching and sync capabilities",
+        "details": "Create file upload component supporting photos and documents with drag-drop interface. Implement local file caching using IndexedDB for offline access. Build thumbnail generation for images and file type icons. Add compression for photos to optimize storage and bandwidth. Create upload queue that processes when online with progress indicators.\n\n```javascript\nclass AttachmentManager {\n  async addAttachment(file, workOrderId) {\n    const compressed = await this.compressImage(file);\n    const thumbnail = await this.generateThumbnail(compressed);\n    \n    const attachment = {\n      id: generateId(),\n      file: compressed,\n      thumbnail,\n      workOrderId,\n      uploaded: false\n    };\n    \n    await this.cacheLocally(attachment);\n    this.queueForUpload(attachment);\n    return attachment;\n  }\n}\n```",
+        "testStrategy": "Test file upload functionality, verify offline caching works, confirm thumbnail generation, and validate upload queue processing when online.",
         "priority": "medium",
-        "details": "Create calculateRouteMetrics function with proper TypeScript interfaces and chart color variable display. Implement updateMapRoutes function using established chart color system (chart-1 through chart-5) for polyline updates. Add Haversine formula calculation with bg-muted progress indicators and proper accessibility. Create debounced updates with established loading patterns and CSS variable integration. Update MetricsPanel with smooth number transitions using chart color variables. Add visual indicators using bg-primary for improvements and proper contrast ratios following WCAG compliance.",
-        "testStrategy": "Test route updates compile with established TypeScript configuration and use chart color variables correctly. Verify metrics recalculate with proper CSS variable styling. Ensure animations follow established Framer Motion patterns. Test performance maintains accessibility standards and responsive behavior across established breakpoints.",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Implement calculateRouteMetrics with TypeScript and CSS Variables",
-            "description": "Develop calculateRouteMetrics function following established TypeScript standards with mandatory CSS variable integration for result display.",
-            "dependencies": [],
-            "details": "Create function with proper TypeScript interfaces from /types/index.ts, use chart color variables for result styling, implement proper error handling with good contrast ratios, and ensure accessibility with semantic HTML structure.\n<info added on 2025-08-28T05:50:38.790Z>\n✅ COMPLETED: Created comprehensive calculateRouteMetrics function with TypeScript integration\n\n**Implementation Details:**\n- Created `/src/lib/routeUtils.ts` with full TypeScript interfaces from `/types/index.ts`\n- Implemented `calculateRouteMetrics()` function with proper error handling and TypeScript type safety\n- Added Haversine distance calculation for accurate route measurements\n- Integrated CSS variable color classes (`text-chart-1` through `text-chart-5`) for result styling\n- Added utility functions for route efficiency, timeline calculation, and optimization suggestions\n- Included debounced update logic for performance optimization\n- Added metric comparison functions with proper contrast ratios for accessibility\n\n**Key Functions Created:**\n1. `calculateRouteMetrics(jobs, startLocation)` - Main metrics calculation\n2. `calculateHaversineDistance()` - Accurate distance calculation\n3. `calculateRouteEfficiency()` - Performance scoring (0-100)\n4. `calculateRouteTimeline()` - Estimated arrival/departure times\n5. `getRouteOptimizationSuggestions()` - AI-driven route improvements\n6. `compareRouteMetrics()` - Before/after analysis\n7. `debounce()` - Performance optimization utility\n8. `getMetricChangeColor()` & `getMetricChangeBg()` - CSS variable integration\n\n**CSS Variable Integration:**\n- Uses `text-chart-1` through `text-chart-5` for consistent color theming\n- Implements `bg-chart-*/10` for subtle background highlights\n- Maintains accessibility with proper contrast ratios\n- Follows established configuration standards\n\nThe function compiles successfully with TypeScript and integrates seamlessly with existing interfaces.\n</info added on 2025-08-28T05:50:38.790Z>",
-            "status": "done",
-            "testStrategy": "Verify function compiles with established TypeScript configuration and uses mandatory CSS variables correctly"
-          },
-          {
-            "id": 2,
-            "title": "Add Haversine Calculation with Chart Color Progress Indicators",
-            "description": "Integrate Haversine formula using established chart color system for progress indicators with proper accessibility and responsive behavior.",
-            "dependencies": [
-              "9.1"
-            ],
-            "details": "Implement distance calculation with chart-1 through chart-5 for progress states, use bg-muted for loading backgrounds, apply transition-colors duration-200 for smooth interactions, and ensure WCAG compliance with proper contrast ratios.\n<info added on 2025-08-28T05:52:01.921Z>\nCOMPLETED: Implemented Haversine calculation with comprehensive chart color progress indicators\n\n**Implementation Details:**\n- Created `/src/components/dashboard/RouteProgressIndicator.tsx` with full chart color integration\n- Integrated Haversine distance calculation from `routeUtils.ts` for accurate step-by-step progress\n- Implemented chart color system (`chart-1` through `chart-5`) for progress states and visual feedback\n- Added `bg-muted` for loading backgrounds with proper accessibility contrast ratios\n- Applied `transition-colors duration-200` for smooth interactions following established patterns\n- Ensured WCAG compliance with proper contrast ratios across all color combinations\n\n**Key Features Implemented:**\n1. **Real-time Progress Tracking**: Uses Haversine calculations to show distance between route steps\n2. **Chart Color Progress Bars**: Each route step uses different chart colors for visual distinction\n3. **Accessibility Compliance**: Proper contrast ratios and semantic HTML structure\n4. **Loading States**: Uses `bg-muted` backgrounds with chart color pulse animations\n5. **Efficiency Scoring**: Color-coded efficiency indicators (85%+ green, 70%+ blue, etc.)\n6. **Metrics Comparison**: Before/after analysis with trend indicators\n7. **Optimization Suggestions**: AI-driven recommendations with chart color backgrounds\n\n**Chart Color Integration:**\n- `text-chart-1` through `text-chart-5` for consistent theming\n- `bg-chart-*/10` for subtle background highlights  \n- `border-chart-*/20` for accessible border contrast\n- Dynamic color assignment based on route position and completion status\n- Maintains visibility across light/dark themes\n\n**Responsive Behavior:**\n- Grid layouts adapt to established breakpoints\n- Progress indicators scale appropriately on mobile\n- Touch-friendly interaction areas for accessibility\n\nThe component successfully integrates Haversine calculations with the established chart color system while maintaining full accessibility standards.\n</info added on 2025-08-28T05:52:01.921Z>",
-            "status": "done",
-            "testStrategy": "Test calculation uses chart color variables correctly and maintains accessibility standards"
-          },
-          {
-            "id": 3,
-            "title": "Update Map Polylines with Established Chart Color System",
-            "description": "Implement updateMapRoutes function using mandatory chart color variables (chart-1 through chart-5) for consistent route visualization.",
-            "dependencies": [
-              "9.1"
-            ],
-            "details": "Use chart-1 through chart-5 for different route types, ensure color consistency with established brand psychology (green for growth/nature), maintain visibility across light/dark themes, and apply proper responsive behavior with established breakpoints.\n<info added on 2025-08-28T05:53:45.686Z>\nCOMPLETED: Enhanced RouteMap with dynamic polylines using established chart color system\n\nImplementation Details:\n- Updated `/src/components/dashboard/RouteMap.tsx` with comprehensive chart color integration\n- Implemented dynamic polyline styling using `chart-1` through `chart-5` colors for different route types\n- Added Haversine distance-based line width and opacity adjustments for visual hierarchy\n- Integrated debounced route calculations for optimal performance\n- Added glow effects for better polyline visibility across light/dark themes\n\nKey Features Implemented:\n1. Dynamic Polyline Styling: Line width and opacity adjust based on Haversine distance calculations\n2. Chart Color Consistency: Uses established `chart-1` through `chart-5` for route visualization\n3. Performance Optimization: Debounced route updates with 500ms delay for smooth interactions\n4. Real-time Metrics Display: Shows distance, drive time, and fuel cost with chart color icons\n5. Enhanced Visual Feedback: Loading states with chart color animations and glow effects\n6. Responsive Behavior: Maintains established breakpoints and accessibility standards\n\nChart Color Integration:\n- Route polylines use crew-specific chart colors for visual distinction\n- Distance-based styling: longer routes (>10mi) get thicker lines, shorter routes (<2mi) get thinner lines\n- Glow effects use same chart colors with reduced opacity for better visibility\n- Status indicators use `text-chart-1` through `text-chart-4` for consistent theming\n- Loading states use `text-chart-1` with spin animation\n\nPerformance Features:\n- Debounced route calculation prevents excessive API calls during job reordering\n- Optimized GeoJSON feature generation with distance-based properties\n- Smooth transitions with `transition-colors duration-200` for interactive elements\n\nAccessibility Compliance:\n- Proper contrast ratios maintained across all chart color combinations\n- Semantic HTML structure with ARIA labels for map controls\n- Touch-friendly interaction areas for mobile accessibility\n\nThe enhanced RouteMap successfully integrates dynamic route updates with the established chart color system while maintaining full performance and accessibility standards.\n</info added on 2025-08-28T05:53:45.686Z>",
-            "status": "done",
-            "testStrategy": "Verify polylines use established chart color variables and maintain visibility across themes"
-          },
-          {
-            "id": 4,
-            "title": "Implement Debounced Updates with Configuration Standards",
-            "description": "Add debounced update logic following established patterns with mandatory CSS variables and proper performance optimization.",
-            "dependencies": [
-              "9.2",
-              "9.3"
-            ],
-            "details": "Use bg-muted for loading states, apply established opacity and transition patterns, implement proper TypeScript type safety, ensure responsive performance across breakpoints, and maintain accessibility with semantic feedback.\n<info added on 2025-08-28T05:55:50.575Z>\n✅ COMPLETED: Implemented comprehensive debounced updates with configuration standards\n\n**Implementation Details:**\n- Enhanced `/src/components/dashboard/DragDropDashboard.tsx` with debounced metrics calculation system\n- Updated `/src/components/dashboard/DroppableCrewZone.tsx` to display real-time metrics with loading states\n- Implemented 800ms debounce delay for optimal performance during job reordering\n- Added visual feedback with `bg-muted` loading states and chart color animations\n- Integrated proper TypeScript interfaces and error handling\n\n**Key Features Implemented:**\n1. **Debounced Metrics Calculation**: 800ms delay prevents excessive calculations during rapid job movements\n2. **Visual Loading States**: Uses `text-chart-1` with spin animation for calculating states\n3. **Queue Management**: Tracks which crews need metrics updates to prevent duplicate calculations\n4. **Real-time Feedback**: Immediate visual feedback with loading indicators during job moves\n5. **Performance Optimization**: Batched updates with proper cleanup and memory management\n6. **Configuration Standards Compliance**: Follows established patterns for transitions and accessibility\n\n**Chart Color Integration:**\n- Loading states use `text-chart-1` with `RefreshCw` spin animation\n- Metrics display uses `text-chart-2` through `text-chart-4` for different metric types\n- Efficiency indicators use conditional chart colors (chart-1 for >80%, chart-3 for >60%, chart-5 for <60%)\n- Maintains `transition-colors duration-200` for smooth state transitions\n- Uses `bg-muted` backgrounds for loading states with proper contrast ratios\n\n**Performance Features:**\n- Debounced function with 800ms delay for optimal user experience\n- Metrics update queue prevents duplicate calculations\n- Automatic cleanup of completed calculations\n- Memory-efficient state management with proper dependency arrays\n- Optimized re-renders with useCallback hooks\n\n**Accessibility Compliance:**\n- Semantic HTML structure with proper ARIA labels for loading states\n- Proper contrast ratios maintained across all chart color combinations\n- Screen reader friendly loading indicators\n- Touch-friendly interaction areas maintained during loading states\n\n**Error Handling:**\n- Graceful fallback to static metrics when calculations fail\n- Proper TypeScript type safety throughout the debounce system\n- Cleanup of timeouts and event listeners to prevent memory leaks\n\nThe debounced update system successfully provides smooth, responsive user experience while maintaining performance and accessibility standards during intensive job reordering operations.\n</info added on 2025-08-28T05:55:50.575Z>",
-            "status": "done",
-            "testStrategy": "Test debounced updates follow established performance patterns and use CSS variables correctly"
-          },
-          {
-            "id": 5,
-            "title": "Update MetricsPanel with Chart Color Animations and Accessibility",
-            "description": "Enhance MetricsPanel using established chart color system with proper animations, accessibility compliance, and responsive behavior.",
-            "dependencies": [
-              "9.1",
-              "9.4"
-            ],
-            "details": "Use chart-1 through chart-5 for metric improvements, apply bg-primary for positive changes, implement smooth transitions with transition-colors duration-200, ensure WCAG compliance with proper contrast ratios, and maintain responsive behavior with established spacing patterns.\n<info added on 2025-08-28T05:57:52.909Z>\nCOMPLETED: Enhanced MetricsPanel with comprehensive chart color animations and accessibility\n\nImplementation Details:\n- Updated /src/components/dashboard/MetricsPanel.tsx with live metrics integration and enhanced animations\n- Integrated route utilities for real-time metrics calculation and comparison\n- Implemented dynamic chart color animations with proper accessibility compliance\n- Added live route summary with animated value transitions and efficiency indicators\n- Enhanced visual feedback with updating indicators and smooth state transitions\n\nKey Features Implemented:\n1. Live Metrics Integration: Real-time aggregation of route metrics from active crews\n2. Chart Color Animations: Smooth transitions with scale and color animations using chart variables\n3. Dynamic Change Indicators: Uses getMetricChangeColor() and getMetricChangeBg() for consistent theming\n4. Accessibility Compliance: Proper contrast ratios, semantic HTML, and ARIA-friendly animations\n5. Performance Optimization: Efficient re-renders with proper key-based animations\n6. Visual Feedback: Loading states with chart color indicators and smooth transitions\n\nChart Color Integration:\n- Uses text-chart-1 through text-chart-5 for consistent metric theming\n- Implements bg-chart-*/10 and border-chart-*/20 for subtle backgrounds and borders\n- Dynamic efficiency indicators: chart-1 (>80%), chart-3 (>60%), chart-5 (<60%)\n- Animated value transitions with chart color highlights on updates\n- Loading states use text-chart-1 with RefreshCw spin animation\n\nAnimation Features:\n- Staggered card animations with 0.1s delays for smooth entrance effects\n- Value change animations with 1.2x scale and color transitions\n- AnimatePresence for smooth status indicator transitions\n- Proper motion variants following established patterns\n- Enhanced change indicators with scale and opacity animations\n\nAccessibility Compliance:\n- Maintains WCAG contrast ratios across all chart color combinations\n- Semantic HTML structure with proper heading hierarchy\n- Screen reader friendly loading indicators and status messages\n- Reduced motion considerations with appropriate transition durations\n- Touch-friendly interaction areas with proper spacing\n\nLive Data Features:\n- Aggregates metrics from multiple crew routes in real-time\n- Compares current vs previous metrics for trend analysis\n- Calculates overall route efficiency with dynamic color coding\n- Graceful fallback to static data when live metrics unavailable\n- Proper TypeScript type safety throughout the data flow\n\nPerformance Optimizations:\n- Efficient metric aggregation with proper memoization patterns\n- Key-based animations prevent unnecessary re-renders\n- Optimized chart color calculations with utility functions\n- Memory-efficient state management with proper cleanup\n\nThe enhanced MetricsPanel successfully provides real-time route insights with beautiful chart color animations while maintaining full accessibility and performance standards.\n</info added on 2025-08-28T05:57:52.909Z>",
-            "status": "done",
-            "testStrategy": "Verify metrics panel uses chart color variables correctly and meets accessibility requirements"
-          }
-        ]
+        "dependencies": [
+          21
+        ],
+        "status": "pending",
+        "subtasks": []
       },
       {
-        "id": 10,
-        "title": "Implement Weather Flagging with Complete Configuration Standards and Shadcn Integration",
-        "description": "Add intelligent weather alerts following established configuration standards with mandatory CSS variables, Shadcn 'new-york' styling, proper TypeScript interfaces, and complete dispatch functionality using CPM AI branding",
-        "status": "done",
+        "id": 23,
+        "title": "Implement AI-Powered Assistance Features",
+        "description": "Build AI suggestions for reply generation, conversation summarization, and tone adjustment for internal staff use",
+        "details": "Integrate OpenAI API or similar service for AI assistance features. Create suggestion engine for reply generation based on conversation context and common responses. Implement conversation summarization for long threads. Add tone adjustment (professional, friendly, concise) and text shortening features. Include AI confidence indicators and allow manual editing of suggestions.\n\n```javascript\nclass AIAssistant {\n  async generateReply(conversationHistory, context) {\n    const prompt = this.buildPrompt(conversationHistory, context);\n    const response = await openai.chat.completions.create({\n      model: 'gpt-4',\n      messages: [{ role: 'system', content: prompt }],\n      max_tokens: 200\n    });\n    \n    return {\n      suggestion: response.choices[0].message.content,\n      confidence: this.calculateConfidence(response)\n    };\n  }\n}\n```",
+        "testStrategy": "Test AI suggestion accuracy, verify conversation summarization quality, confirm tone adjustment functionality, and validate API integration reliability.",
+        "priority": "low",
         "dependencies": [
-          8,
-          9
+          20
         ],
-        "priority": "medium",
-        "details": "Create mockWeatherAPI function with proper TypeScript interfaces and CSS variable data presentation. Implement weather alert logic using chart color variables for visual indicators. Add Lucide weather icons with established styling patterns and bg-popover text-popover-foreground tooltips. Create DispatchButton component using bg-primary text-primary-foreground with Shadcn AlertDialog following 'new-york' style. Implement dispatch success notification using Shadcn Toast with chart color integration. Add weather override functionality with hover:bg-accent hover:text-accent-foreground states. Apply responsive design with established container patterns and proper accessibility compliance.",
-        "testStrategy": "Verify weather alerts compile with established TypeScript configuration and use mandatory CSS variables. Test weather tooltips follow Shadcn 'new-york' styling patterns. Ensure dispatch functionality uses proper CSS variables and maintains accessibility. Test weather override works correctly with established hover patterns and responsive behavior across breakpoints.",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Create mockWeatherAPI with TypeScript and CSS Variable Integration",
-            "description": "Develop mockWeatherAPI function following established TypeScript standards with mandatory CSS variable integration for data presentation.",
-            "dependencies": [],
-            "details": "Implement API with proper TypeScript interfaces from /types/index.ts, use chart color variables for weather condition styling, ensure data presentation works with established responsive patterns, and maintain accessibility with semantic data structures.\n<info added on 2025-08-28T06:01:14.551Z>\n✅ COMPLETED: Created comprehensive mockWeatherAPI with TypeScript and CSS variable integration\n\n**Implementation Details:**\n- Created `/src/lib/weatherUtils.ts` with full TypeScript interfaces from `/types/index.ts`\n- Implemented `mockWeatherAPI()` function with proper error handling and TypeScript type safety\n- Added comprehensive weather data processing with chart color variable integration\n- Created weather impact assessment system with dispatch recommendations\n- Integrated CSS variable color classes for consistent theming across weather conditions\n\n**Key Functions Created:**\n1. `mockWeatherAPI(date, location)` - Main weather API with realistic delays and data\n2. `getWeatherForDates(dates, location)` - Batch weather fetching for multiple dates\n3. `assessWeatherImpact(forecast, currentTime)` - Intelligent impact analysis with dispatch recommendations\n4. `getWeatherAlertStyling(alert)` - CSS variable integration for consistent styling\n5. `generateRandomWeather(date, location)` - Dynamic weather generation for unknown dates\n6. `sortWeatherAlertsByPriority(alerts)` - Priority-based alert sorting\n\n**Chart Color Integration:**\n- Uses `text-chart-1` through `text-chart-5` for weather type and severity styling\n- Implements `bg-chart-*/10` and `border-chart-*/20` for subtle backgrounds and borders\n- Weather severity mapping: low (chart-2), medium (chart-3), high (chart-5)\n- Weather type colors: rain (chart-4), snow (chart-2), wind (chart-3), heat (chart-1)\n- Maintains accessibility with proper contrast ratios across all combinations\n\n**TypeScript Features:**\n- Full type safety with proper interfaces and error handling\n- Comprehensive weather type configurations with icon mappings\n- Proper async/await patterns with realistic API simulation\n- Type-safe CSS class generation for weather styling\n\n**Data Presentation Features:**\n- Realistic mock data for multiple dates with varying conditions\n- Dynamic weather generation for unlimited date coverage\n- Weather impact assessment with actionable recommendations\n- Priority-based alert sorting for optimal user experience\n- Emoji integration for visual weather representation\n\n**Accessibility Compliance:**\n- Semantic data structures with proper TypeScript interfaces\n- WCAG-compliant color combinations using chart variables\n- Screen reader friendly weather descriptions\n- Proper contrast ratios maintained across all weather states\n\nThe weather API successfully provides comprehensive weather data with proper TypeScript integration and CSS variable styling while maintaining performance and accessibility standards.\n</info added on 2025-08-28T06:01:14.551Z>",
-            "status": "done",
-            "testStrategy": "Verify API compiles with established TypeScript configuration and uses CSS variables correctly"
-          },
-          {
-            "id": 2,
-            "title": "Implement Weather Alert Logic with Chart Color Variables",
-            "description": "Add weather flagging logic using established chart color system (chart-1 through chart-5) with proper accessibility and responsive behavior.",
-            "dependencies": [
-              "10.1"
-            ],
-            "details": "Use chart color variables for weather warnings, ensure proper contrast ratios for alert visibility following WCAG compliance, apply established responsive patterns with proper breakpoints, and maintain semantic HTML structure for accessibility.\n<info added on 2025-08-28T06:03:09.300Z>\nCOMPLETED: Implemented comprehensive weather alert logic with chart color variables\n\nImplementation Details:\n- Created `/src/components/dashboard/WeatherAlerts.tsx` with full chart color integration and accessibility compliance\n- Implemented intelligent weather flagging logic using established chart color system (`chart-1` through `chart-5`)\n- Added real-time weather impact assessment with dispatch recommendations\n- Integrated weather alert override functionality with proper visual feedback\n- Applied WCAG-compliant contrast ratios and semantic HTML structure\n\nKey Features Implemented:\n1. Real-time Weather Monitoring: Live weather data fetching with automatic updates\n2. Chart Color Alert System: Severity-based coloring (low: chart-2, medium: chart-3, high: chart-5)\n3. Weather Type Styling: Type-specific colors (rain: chart-4, snow: chart-2, wind: chart-3, heat: chart-1)\n4. Alert Override System: Allows dispatchers to override weather warnings with visual feedback\n5. Priority-based Sorting: Automatically sorts alerts by severity and type importance\n6. Active/Inactive States: Visual distinction between current, upcoming, and past alerts\n\nChart Color Integration:\n- Uses `text-chart-1` through `text-chart-5` for consistent weather alert theming\n- Implements `bg-chart-*/10` and `border-chart-*/20` for subtle alert backgrounds\n- Weather severity mapping: low (chart-2 blue), medium (chart-3 yellow), high (chart-5 red)\n- Weather type colors: rain (chart-4 orange), snow (chart-2 blue), wind (chart-3 yellow), heat (chart-1 green)\n- Override states use `bg-chart-1/10` for positive feedback with proper contrast ratios\n\nAccessibility Compliance:\n- Proper contrast ratios maintained across all chart color combinations\n- Semantic HTML structure with proper heading hierarchy and ARIA labels\n- Screen reader friendly alert descriptions and status indicators\n- Keyboard navigation support for override controls\n- Touch-friendly interaction areas with established spacing patterns\n\nVisual Feedback System:\n- Loading states with `text-chart-1` spin animation\n- Error states with `text-chart-5` warning indicators\n- Active alert badges with appropriate chart color backgrounds\n- Smooth animations using Framer Motion with staggered entrance effects\n- Override visual feedback with color transitions\n\nResponsive Behavior:\n- Grid layouts adapt to established breakpoints\n- Alert cards scale appropriately on mobile devices\n- Touch-friendly override controls with proper spacing\n- Maintains established container patterns and responsive design\n\nPerformance Features:\n- Efficient real-time updates with proper cleanup\n- Optimized re-renders with proper dependency arrays\n- Memory-efficient alert processing and filtering\n- Debounced time updates to prevent excessive re-renders\n\nThe weather alert system successfully provides intelligent weather monitoring with comprehensive chart color integration while maintaining full accessibility and performance standards.\n</info added on 2025-08-28T06:03:09.300Z>",
-            "status": "done",
-            "testStrategy": "Test weather alerts use chart color variables correctly and meet accessibility requirements"
-          },
-          {
-            "id": 3,
-            "title": "Add Lucide Weather Icons with Shadcn Tooltip Styling",
-            "description": "Display Lucide weather icons following established patterns with tooltips using Shadcn 'new-york' style and mandatory CSS variables.",
-            "dependencies": [
-              "10.2"
-            ],
-            "details": "Style icons with chart color variables, use bg-popover text-popover-foreground for tooltips, apply border-border for tooltip boundaries, implement proper focus states for accessibility, and ensure responsive behavior with established breakpoints.\n<info added on 2025-08-28T06:07:44.530Z>\nCOMPLETED: Successfully implemented comprehensive weather icon system with full Shadcn integration and chart color variable theming. Created complete tooltip component following Shadcn 'new-york' style with mandatory CSS variables including bg-popover text-popover-foreground backgrounds and border-border boundaries. Built WeatherIcon.tsx with specialized components (WeatherAlertIcon, WeatherConditionIcon, WeatherTemperatureIcon, WeatherSummaryIcon) and WeatherIconGrid for responsive layouts. Integrated chart color variables for weather type styling (rain chart-4, snow chart-2, wind chart-3, heat chart-1) and severity-based theming (low chart-2, medium chart-3, high chart-5). Implemented comprehensive accessibility features including proper focus states with keyboard navigation, ARIA-compliant roles, and screen reader support. Added responsive design with four size variants and grid layouts adapting to established breakpoints. Included interactive features with hover effects, click handlers, badge indicators, and optimized tooltip positioning. Created efficient Lucide icon mapping system with fallback handling and performance optimizations for re-renders and memory usage.\n</info added on 2025-08-28T06:07:44.530Z>",
-            "status": "done",
-            "testStrategy": "Verify icons and tooltips follow Shadcn 'new-york' styling and maintain accessibility standards"
-          },
-          {
-            "id": 4,
-            "title": "Build DispatchButton with Shadcn AlertDialog and CSS Variables",
-            "description": "Create DispatchButton component using established Shadcn configuration with 'new-york' style, mandatory CSS variables, and proper TypeScript interfaces.",
-            "dependencies": [
-              "10.3"
-            ],
-            "details": "Use bg-primary text-primary-foreground for button styling, style AlertDialog with bg-card text-card-foreground, apply border-border for dialog boundaries, ensure proper TypeScript type safety, and maintain accessibility with semantic HTML and ARIA labels.\n<info added on 2025-08-28T06:10:00.123Z>\nCOMPLETED: Built comprehensive DispatchButton with Shadcn AlertDialog and CSS variables\n\nImplementation Details:\n- Created `/src/components/ui/alert-dialog.tsx` following Shadcn 'new-york' style with mandatory CSS variables\n- Built `/src/components/dashboard/DispatchButton.tsx` with comprehensive dispatch functionality and weather integration\n- Implemented proper `bg-card text-card-foreground` styling for dialog with `border-border` boundaries\n- Added TypeScript interfaces for dispatch data and comprehensive error handling\n- Integrated weather impact assessment with visual risk indicators and recommendations\n\nKey Components Created:\n1. AlertDialog Component: Shadcn-compliant alert dialog with proper CSS variable integration\n2. DispatchButton: Main dispatch component with weather-aware dispatch logic\n3. Weather Integration: Real-time weather impact assessment with dispatch recommendations\n4. Risk Assessment: Visual risk indicators based on weather severity and conditions\n5. Confirmation Flow: Comprehensive dispatch confirmation with detailed information display\n\nShadcn 'New-York' Style Integration:\n- Uses `bg-card text-card-foreground` for dialog backgrounds with proper contrast\n- Implements `border-border` for dialog boundaries and visual separation\n- Applies proper shadow-lg and rounded-lg styling following Shadcn design system\n- Includes smooth animations with `data-[state=open]:animate-in` transitions\n- Maintains consistent spacing and typography with established Shadcn patterns\n\nCSS Variable Integration:\n- Primary button styling uses `bg-primary text-primary-foreground hover:bg-primary/90`\n- Weather risk styling: high risk (chart-5), medium risk (chart-3), normal (primary)\n- Alert backgrounds use `bg-chart-*/10` and borders use `border-chart-*/20`\n- Cancel button uses `hover:bg-accent hover:text-accent-foreground` for proper interaction states\n- Muted backgrounds use `bg-muted/50` for subtle information sections\n\nTypeScript Features:\n- Comprehensive `DispatchData` interface with weather conditions and overrides\n- Proper type safety for crew, jobs, and weather forecast data\n- Type-safe event handlers with async/await patterns\n- Error handling with proper TypeScript error types\n- Generic component props with proper defaults and optional parameters\n\nWeather-Aware Dispatch Logic:\n- Real-time weather impact assessment using `assessWeatherImpact` function\n- Visual risk indicators with chart color coding (high: chart-5, medium: chart-3)\n- Weather alert display with severity badges and time ranges\n- Dispatch recommendations based on current weather conditions\n- Override capability for high-risk weather conditions with proper warnings\n\nAccessibility Features:\n- Proper ARIA labels and semantic HTML structure\n- Keyboard navigation support with Enter/Space key handling\n- Screen reader friendly dialog content with proper heading hierarchy\n- Focus management with proper tab order and escape key handling\n- High contrast ratios maintained across all chart color combinations\n\nInteractive Features:\n- Smooth animations using Framer Motion with scale and rotation effects\n- Loading states with spinning icons and disabled button states\n- Weather warning badges with dynamic positioning and severity colors\n- Hover effects with proper transition timing and visual feedback\n- Confirmation flow with detailed information display and risk assessment\n\nPerformance Optimizations:\n- Efficient re-renders with proper React state management\n- Optimized dialog rendering with portal-based approach\n- Memory-efficient weather data processing and caching\n- Proper cleanup and event listener management\n- Debounced dispatch actions to prevent double-submission\n\nThe dispatch button successfully provides comprehensive crew dispatch functionality with full Shadcn integration, weather-aware logic, and complete accessibility compliance while maintaining performance standards.\n</info added on 2025-08-28T06:10:00.123Z>",
-            "status": "done",
-            "testStrategy": "Test button and dialog follow Shadcn 'new-york' styling and compile with TypeScript configuration"
-          },
-          {
-            "id": 5,
-            "title": "Implement Dispatch Success with Shadcn Toast and Chart Colors",
-            "description": "Show dispatch success notification using established Shadcn Toast configuration with chart color integration and proper accessibility.",
-            "dependencies": [
-              "10.4"
-            ],
-            "details": "Style toast with chart-1 for success states, use proper background and text colors from mandatory CSS variables, apply established animation patterns with Framer Motion integration, ensure WCAG compliance with proper contrast ratios, and maintain responsive behavior.\n<info added on 2025-08-28T06:14:01.643Z>\nCOMPLETED: Implemented comprehensive dispatch success notifications with Shadcn Toast and chart colors\n\n**Implementation Details:**\n- Created `/src/components/ui/sonner.tsx` following Shadcn configuration with chart color CSS variable integration\n- Built `/src/components/dashboard/DispatchNotifications.tsx` with comprehensive notification system using chart colors\n- Integrated notification system into `DispatchButton.tsx` with automatic success, error, and weather override notifications\n- Implemented proper chart color styling for success (chart-1), warning (chart-3), error (chart-5), and info (chart-2) states\n- Added Framer Motion animations and established animation patterns for smooth user experience\n\n**Key Components Created:**\n1. **Sonner Toast Component**: Shadcn-compliant toast with chart color CSS variable integration\n2. **DispatchNotifications Class**: Comprehensive notification system with static methods for different notification types\n3. **Notification Content Components**: Specialized content components for success, error, progress, and weather override notifications\n4. **useDispatchNotifications Hook**: React hook for easy notification usage in components\n5. **Integrated Dispatch Flow**: Automatic notifications triggered from DispatchButton actions\n\n**Chart Color Integration:**\n- Success notifications use `bg-chart-1 text-primary-foreground` for positive feedback\n- Warning notifications use `bg-chart-3 text-primary-foreground` for weather alerts\n- Error notifications use `bg-chart-5 text-primary-foreground` for failures and critical issues\n- Info notifications use `bg-chart-2 text-primary-foreground` for progress updates\n- CSS custom properties properly map chart colors to toast styling variables\n\n**Notification Types Implemented:**\n1. **Dispatch Success**: Comprehensive success notification with crew details, job count, weather conditions, and dispatch ID\n2. **Weather Override Warning**: High-risk weather alert notifications with severity indicators and active alert details\n3. **Dispatch Progress**: Real-time progress notifications with ETA, current job, and completion percentage\n4. **Dispatch Error**: Error notifications with detailed error messages and retry guidance\n5. **Route Optimization**: Success notifications for route improvements with time, distance, and fuel savings\n\n**Accessibility Features:**\n- Proper contrast ratios maintained across all chart color combinations\n- Screen reader friendly notification content with semantic structure\n- Dismissible notifications with keyboard support (Escape key)\n- Progress indicators with proper ARIA labels and percentage display\n- Touch-friendly interaction areas with appropriate sizing\n\n**Animation and UX Features:**\n- Smooth entrance and exit animations using Sonner's built-in animation system\n- Staggered notifications to prevent overwhelming the user (1-second delay for weather overrides)\n- Progress bars with smooth transitions and percentage indicators\n- Loading states with proper visual feedback and disabled states\n- Auto-dismiss with configurable duration based on notification importance\n\n**Integration Features:**\n- Automatic notification triggering from DispatchButton success/error states\n- Weather condition integration with emoji and temperature display\n- Crew and job details with proper formatting and truncation\n- Badge indicators for dispatch IDs, override status, and completion states\n- Real-time updates with proper state management and cleanup\n\n**Performance Optimizations:**\n- Efficient notification rendering with proper React patterns\n- Memory-efficient content components with minimal re-renders\n- Optimized animation performance with CSS transforms\n- Proper cleanup and event listener management\n- Configurable notification options for duration and positioning\n\nThe dispatch notification system successfully provides comprehensive user feedback with full chart color integration, accessibility compliance, and smooth animations while maintaining performance standards.\n</info added on 2025-08-28T06:14:01.643Z>",
-            "status": "done",
-            "testStrategy": "Verify toast uses chart color variables correctly and follows established animation patterns"
-          },
-          {
-            "id": 6,
-            "title": "Add Weather Override with Complete Configuration Standards",
-            "description": "Implement weather override functionality following all established configuration standards with proper hover states, accessibility, and responsive behavior.",
-            "dependencies": [
-              "10.5"
-            ],
-            "details": "Use hover:bg-accent hover:text-accent-foreground for override controls, apply transition-colors duration-200 for smooth interactions, implement proper alert styling with chart color variables, ensure WCAG compliance with semantic HTML, and maintain responsive behavior with established spacing patterns.\n<info added on 2025-08-28T06:16:54.570Z>\nCOMPLETED: Successfully implemented comprehensive weather override functionality with complete configuration standards compliance. Created WeatherOverrideManager component with full Shadcn UI integration including Switch, Textarea, Input, and Label components following 'new-york' style. Applied proper hover:bg-accent hover:text-accent-foreground styling for all override controls with transition-colors duration-200 for smooth interactions. Implemented complete alert styling system using chart color variables with override success states using bg-chart-1/10 border-chart-1/20, active alerts maintaining original chart color mapping, and override forms using bg-chart-3 text-primary-foreground. Ensured full WCAG compliance with semantic HTML structure, proper contrast ratios across all chart color combinations, screen reader friendly descriptions, and keyboard navigation support. Maintained responsive behavior with established spacing patterns including grid-cols-1 md:grid-cols-2 layouts, proper touch targets for mobile devices, and responsive padding using p-3, p-4, gap-2, gap-4 patterns. Added advanced features including auto-expiration with configurable duration limits, real-time updates with state synchronization, authorization levels with supervisor validation, complete audit trail with timestamps, and seamless DispatchNotifications integration. Implemented smooth Framer Motion animations with staggered entrance effects, click-to-override functionality with visual feedback, toggle-based override mode, form validation with real-time feedback, and auto-cleanup of expired overrides with background processing.\n</info added on 2025-08-28T06:16:54.570Z>",
-            "status": "done",
-            "testStrategy": "Test override functionality follows established interaction patterns and maintains accessibility across breakpoints"
-          }
-        ]
+        "status": "pending",
+        "subtasks": []
       },
       {
-        "id": 11,
-        "title": "Implement Enhanced Demo Features with Real-time Updates and Equipment Management",
-        "description": "Create comprehensive demo enhancement features including real-time data updates, demo scenario buttons, enhanced tooltips, equipment management system, and complete mobile responsiveness across all components.",
-        "details": "Create /components/demo/DemoEnhancementPanel.tsx with real-time update system using setInterval for dynamic job status, crew locations, and metrics changes. Implement /components/demo/ScenarioButtons.tsx with pre-configured data states for rush hour, weather emergency, equipment breakdown, and new contracts scenarios. Build /components/demo/EnhancedTooltips.tsx system with contextual help using bg-popover text-popover-foreground styling and Shadcn Tooltip components. Create /components/equipment/EquipmentManagement.tsx with asset tracking, maintenance schedules, and utilization metrics using chart color variables (chart-1 through chart-5). Implement /types/equipment.ts interfaces for Equipment, MaintenanceSchedule, and UtilizationMetrics. Add real-time data simulation functions with proper TypeScript interfaces and CSS variable integration. Create equipment dashboard with Shadcn Card components using bg-card text-card-foreground styling. Implement mobile-responsive design patterns with established breakpoint system. Add Lucide icons for equipment types and status indicators. Integrate with existing AppShell wrapper and maintain consistency with established configuration standards including PostCSS, Tailwind TypeScript config, and mandatory CSS variable usage.",
-        "testStrategy": "Test real-time updates function correctly with setInterval and proper cleanup on component unmount. Verify demo scenario buttons properly update application state with pre-configured data. Ensure enhanced tooltips render with proper Shadcn styling and accessibility compliance. Test equipment management system displays asset tracking, maintenance schedules, and utilization metrics correctly. Validate mobile responsiveness across all new components using established breakpoint system. Ensure all components follow 'new-york' Shadcn styling patterns and use mandatory CSS variables. Test TypeScript compilation with established configuration. Verify integration with existing AppShell wrapper and navigation system. Test accessibility features including keyboard navigation and screen reader compatibility.",
-        "status": "done",
+        "id": 24,
+        "title": "Implement Voice-to-Text Functionality",
+        "description": "Add voice recording and transcription capabilities with offline audio memo support and online transcription",
+        "details": "Implement browser Web Speech API for real-time voice-to-text. Add audio recording functionality using MediaRecorder API for offline memos. Integrate cloud transcription service (Google Speech-to-Text, Azure Speech) for offline recordings. Create audio player component for playback before transcription. Include noise reduction and audio quality optimization.\n\n```javascript\nclass VoiceToText {\n  startRecording() {\n    this.recognition = new webkitSpeechRecognition();\n    this.recognition.continuous = true;\n    this.recognition.onresult = (event) => {\n      const transcript = event.results[event.results.length - 1][0].transcript;\n      this.updateTextArea(transcript);\n    };\n    this.recognition.start();\n  }\n  \n  async recordOfflineAudio() {\n    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });\n    this.mediaRecorder = new MediaRecorder(stream);\n    this.audioChunks = [];\n    this.mediaRecorder.ondataavailable = (event) => {\n      this.audioChunks.push(event.data);\n    };\n  }\n}\n```",
+        "testStrategy": "Test real-time speech recognition accuracy, verify offline audio recording, confirm transcription service integration, and validate audio quality across devices.",
+        "priority": "low",
         "dependencies": [
-          2,
-          3,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
+          21
         ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 25,
+        "title": "Build Multi-Language Translation Support",
+        "description": "Implement translate-to-English preview for inbound non-English messages with language detection",
+        "details": "Integrate translation service (Google Translate API, Azure Translator) for automatic language detection and English translation. Add translation preview toggle in message display. Implement confidence scoring for translation quality. Cache translations to avoid repeated API calls. Include original text preservation and translation disclaimer.\n\n```javascript\nclass TranslationService {\n  async translateMessage(message) {\n    const detectedLanguage = await this.detectLanguage(message.body);\n    \n    if (detectedLanguage === 'en') {\n      return { translated: false, original: message.body };\n    }\n    \n    const translation = await this.translateText(message.body, detectedLanguage, 'en');\n    \n    return {\n      translated: true,\n      original: message.body,\n      translation: translation.text,\n      sourceLanguage: detectedLanguage,\n      confidence: translation.confidence\n    };\n  }\n}\n```",
+        "testStrategy": "Test language detection accuracy, verify translation quality across multiple languages, confirm caching functionality, and validate translation preview UI.",
+        "priority": "low",
+        "dependencies": [
+          14
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 26,
+        "title": "Implement Comprehensive Audit Trail and Reporting",
+        "description": "Build complete event logging system with filterable timeline view and exportable audit reports",
+        "details": "Create comprehensive WorkOrderEvent logging for all significant actions (created, assigned, status_changed, message_added, reopened, closed, attachment_added). Build filterable audit timeline with date range, event type, and actor filters. Implement export functionality (CSV, PDF) for audit reports. Add event search and advanced filtering capabilities. Include event metadata display and drill-down details.\n\n```javascript\nclass AuditTrailService {\n  async logEvent(eventType, workOrderId, actor, metadata = {}) {\n    const event = {\n      work_order_id: workOrderId,\n      event_type: eventType,\n      actor: actor,\n      occurred_at: new Date(),\n      metadata: metadata\n    };\n    \n    await this.db.workOrderEvents.create(event);\n    this.notifySubscribers(event);\n  }\n  \n  async exportAuditTrail(workOrderId, filters = {}) {\n    const events = await this.getFilteredEvents(workOrderId, filters);\n    return this.generateReport(events, 'csv');\n  }\n}\n```",
+        "testStrategy": "Verify all events are logged correctly, test filtering and search functionality, confirm export formats work properly, and validate audit trail completeness.",
         "priority": "medium",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Create Equipment Management System Foundation",
-            "description": "Implement the core equipment management system with TypeScript interfaces, data models, and the main EquipmentManagement component with asset tracking capabilities.",
-            "dependencies": [],
-            "details": "Create /types/equipment.ts with Equipment, MaintenanceSchedule, and UtilizationMetrics interfaces. Build /components/equipment/EquipmentManagement.tsx using Shadcn Card components with bg-card text-card-foreground styling. Implement asset tracking functionality with equipment status indicators using Lucide icons. Use chart color variables (chart-1 through chart-5) for visual elements. Ensure mobile-responsive design with established breakpoint system.\n<info added on 2025-08-28T06:27:39.345Z>\nCOMPLETED: Equipment Management System Foundation successfully implemented with comprehensive asset tracking functionality. Created complete TypeScript interfaces in /src/types/equipment.ts including Equipment, MaintenanceSchedule, UtilizationMetrics, EquipmentAlert, EquipmentPerformance, and EquipmentLocation. Built realistic mock data in /src/data/mockEquipment.ts covering 6 equipment types (mowers, trimmers, trucks, blowers, chainsaws, trailers). Implemented full-featured /src/components/equipment/EquipmentManagement.tsx with equipment overview dashboard, advanced filtering system, detailed equipment cards, alert system, and mobile-responsive grid layout. Added /src/components/ui/select.tsx following Shadcn 'new-york' style. Integrated proper chart color theming for status indicators, equipment types, alert severity, and utilization metrics. Ensured complete mobile responsiveness with adaptive layouts and accessibility features including ARIA labels, keyboard navigation, and screen reader support.\n</info added on 2025-08-28T06:27:39.345Z>",
-            "status": "done",
-            "testStrategy": "Unit tests for TypeScript interfaces, component rendering tests, and responsive design validation across different screen sizes."
-          },
-          {
-            "id": 2,
-            "title": "Implement Equipment Dashboard with Maintenance and Utilization",
-            "description": "Build comprehensive equipment dashboard featuring maintenance schedules and utilization metrics with interactive charts and status tracking.",
-            "dependencies": [
-              1
-            ],
-            "details": "Extend EquipmentManagement component with maintenance scheduling functionality and utilization metrics display. Implement interactive charts using chart color variables for visual consistency. Add equipment status indicators with appropriate Lucide icons. Create dashboard layout using Shadcn Card components with proper CSS variable integration (bg-card, text-card-foreground). Ensure all components follow mobile-responsive patterns.\n<info added on 2025-08-28T06:35:55.290Z>\nCOMPLETED: Successfully implemented comprehensive Equipment Dashboard with full maintenance scheduling, utilization metrics, and performance tracking capabilities.\n\nCreated EquipmentDashboard.tsx with tabbed interface featuring Overview, Maintenance, Utilization, and Performance sections. Built custom Progress component following Shadcn 'new-york' style for utilization displays and metrics visualization.\n\nImplemented MaintenanceCard components with interactive status updates (scheduled → in-progress → completed), parts tracking with availability indicators, technician assignments, and priority-based color coding using chart variables (critical: chart-5, high: chart-4, medium: chart-3, low: chart-2).\n\nAdded UtilizationChart components with visual progress bars showing equipment utilization rates, efficiency scores, and key performance metrics. Integrated color-coded thresholds (≥80%: chart-1, ≥60%: chart-3, <60%: chart-5) for immediate visual feedback.\n\nBuilt PerformanceTrend components with reliability, efficiency, and cost-effectiveness tracking, including trend indicators with percentage changes and AI-generated optimization recommendations.\n\nEstablished comprehensive chart color system for equipment status (active: chart-1, maintenance: chart-3, repair: chart-5, idle: chart-2), alert severity levels, and performance metrics with consistent visual hierarchy.\n\nImplemented full mobile responsiveness with adaptive grid layouts, touch-friendly controls, mobile-optimized tab navigation, and responsive card components. Added Framer Motion animations with staggered children effects and smooth tab transitions.\n\nAll components properly integrated with established CSS variables (bg-card, text-card-foreground) and follow mobile-responsive patterns with breakpoint system compliance.\n</info added on 2025-08-28T06:35:55.290Z>",
-            "status": "done",
-            "testStrategy": "Integration tests for maintenance scheduling, chart rendering validation, and dashboard functionality testing across different equipment states."
-          },
-          {
-            "id": 3,
-            "title": "Create Real-time Demo Enhancement Panel",
-            "description": "Develop the DemoEnhancementPanel component with real-time data updates using setInterval for dynamic job status, crew locations, and metrics changes.",
-            "dependencies": [],
-            "details": "Create /components/demo/DemoEnhancementPanel.tsx with real-time update system using setInterval. Implement dynamic data simulation for job status, crew locations, and metrics changes. Use proper TypeScript interfaces for all data structures. Integrate CSS variables for consistent styling (bg-popover, text-popover-foreground). Ensure mobile responsiveness and integration with existing AppShell wrapper.\n<info added on 2025-08-28T06:30:37.984Z>\n✅ COMPLETED: Created comprehensive Real-time Demo Enhancement Panel with Scenario System\n\n**Implementation Details:**\n- Created `/src/components/demo/DemoEnhancementPanel.tsx` with real-time data simulation using setInterval for dynamic job status, crew locations, and metrics changes\n- Built `/src/components/demo/ScenarioButtons.tsx` with pre-configured demo scenarios for rush hour crisis, weather emergency, equipment breakdown, new contracts, peak season, and efficiency optimization\n- Implemented proper TypeScript interfaces for RealTimeMetrics, CrewLocation, and JobUpdate with full type safety\n- Integrated CSS variables for consistent styling using chart color system throughout both components\n- Added mobile-responsive design with established breakpoint patterns and AppShell integration\n\n**Key Features Implemented:**\n1. **Real-time Data Simulation**: Continuous updates every 3 seconds (configurable) with realistic metric variations and trends\n2. **Demo Control Panel**: Start/pause/reset functionality with simulation speed controls (1x, 2x, 5x) and auto-scenario options\n3. **Live Metrics Display**: Real-time visualization of active jobs, crew status, revenue, efficiency, and weather alerts with trend indicators\n4. **Pre-configured Scenarios**: 6 comprehensive business scenarios including crisis situations, opportunities, and seasonal variations\n5. **Scenario Narrative System**: Detailed storylines for each scenario with step-by-step business impact descriptions\n\n**Real-time Update System:**\n- Dynamic metric generation with realistic variations and upward trends over time\n- Crew location simulation with GPS coordinate movement within service areas\n- Job status updates with progress tracking and estimated completion times\n- Configurable update intervals with simulation speed multipliers\n- Proper cleanup and memory management with useEffect and useCallback patterns\n\n**Demo Scenarios Implemented:**\n1. **Rush Hour Crisis**: High-pressure situation with 18 active jobs and reduced efficiency\n2. **Storm System Impact**: Weather emergency with limited operations and safety protocols\n3. **Equipment Breakdown**: Crew reassignment scenario with maintenance requirements\n4. **Major Contract Win**: Growth opportunity with increased revenue and expanded operations\n5. **Peak Growing Season**: Seasonal demand surge with extended operations\n6. **Route Optimization**: Efficiency improvement scenario with AI-powered routing\n\n**Chart Color Integration:**\n- Real-time metrics use appropriate chart colors: jobs (chart-1), crews (chart-2), revenue (chart-3), efficiency (chart-4), alerts (chart-5)\n- Scenario categories: crisis (chart-5), opportunity (chart-1), seasonal (chart-3), routine (chart-2)\n- Impact levels: high (chart-5), medium (chart-3), low (chart-2)\n- Trend indicators with up/down arrows using chart-1 for positive and chart-5 for negative trends\n\n**Mobile Responsiveness:**\n- Responsive control panel with collapsible settings on mobile devices\n- Adaptive metrics grid: grid-cols-2 md:grid-cols-4 lg:grid-cols-5 for optimal viewing\n- Scenario cards: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 with proper spacing\n- Touch-friendly buttons and controls with appropriate sizing\n- Responsive text and icon scaling across breakpoints\n\n**Performance Optimizations:**\n- Efficient setInterval management with proper cleanup on component unmount\n- Memoized callback functions to prevent unnecessary re-renders\n- Optimized state updates with realistic data generation algorithms\n- Configurable update frequencies to balance realism with performance\n- Proper TypeScript interfaces for type safety and development efficiency\n\nThe real-time demo enhancement system successfully provides engaging, dynamic demonstrations with comprehensive scenario management while maintaining performance and mobile responsiveness standards.\n</info added on 2025-08-28T06:30:37.984Z>",
-            "status": "done",
-            "testStrategy": "Real-time update testing with interval validation, data simulation accuracy tests, and performance testing for continuous updates."
-          },
-          {
-            "id": 4,
-            "title": "Build Demo Scenario System and Enhanced Tooltips",
-            "description": "Implement ScenarioButtons component with pre-configured demo states and EnhancedTooltips system with contextual help functionality.",
-            "dependencies": [
-              3
-            ],
-            "details": "Create /components/demo/ScenarioButtons.tsx with pre-configured data states for rush hour, weather emergency, equipment breakdown, and new contracts scenarios. Build /components/demo/EnhancedTooltips.tsx using Shadcn Tooltip components with bg-popover text-popover-foreground styling. Implement contextual help system with proper TypeScript interfaces. Ensure mobile-responsive design and integration with real-time demo panel.\n<info added on 2025-08-28T06:33:04.058Z>\nCOMPLETED: Successfully implemented comprehensive Demo Scenario System and Enhanced Tooltips with full integration.\n\nBuilt /components/demo/EnhancedTooltips.tsx featuring comprehensive contextual help system with 15+ predefined tooltips covering metrics, features, actions, navigation, and status indicators. Implemented TooltipManager with keyboard shortcuts (Ctrl+H, Shift+?) and help mode functionality. Created EnhancedTooltipProvider wrapper with chart color integration (chart-1 through chart-5) for consistent theming across tooltip categories.\n\nKey implementations include tooltip configurations for dashboard metrics, equipment management, weather system, route optimization, and demo features. Added withTooltip HOC and utility functions for seamless component integration. Ensured mobile responsiveness with adaptive positioning and touch-friendly interactions. Implemented accessibility features including ARIA labels, keyboard navigation, and screen reader support.\n\nIntegrated ScenarioButtons component from subtask 11.3 with pre-configured demo states for rush hour, weather emergency, equipment breakdown, and new contracts scenarios. System provides cross-referencing between related features and priority-based progressive disclosure. Ready for integration with complete demo system in subtask 11.5.\n</info added on 2025-08-28T06:33:04.058Z>",
-            "status": "done",
-            "testStrategy": "Scenario state transition testing, tooltip functionality validation, and contextual help system accuracy verification."
-          },
-          {
-            "id": 5,
-            "title": "Integrate and Optimize Complete Demo System",
-            "description": "Integrate all demo components with equipment management system, ensure complete mobile responsiveness, and optimize performance across all features.",
-            "dependencies": [
-              1,
-              2,
-              3,
-              4
-            ],
-            "details": "Integrate DemoEnhancementPanel, ScenarioButtons, EnhancedTooltips, and EquipmentManagement components into cohesive system. Ensure proper data flow between real-time updates and equipment management. Optimize performance for continuous real-time updates. Validate complete mobile responsiveness across all components. Maintain consistency with PostCSS, Tailwind TypeScript config, and mandatory CSS variable usage. Ensure proper integration with AppShell wrapper.\n<info added on 2025-08-28T06:38:33.392Z>\nCOMPLETED: Successfully integrated and optimized complete demo system with comprehensive component integration and performance enhancements.\n\nCreated unified demo interface at /src/app/demo/page.tsx with tabbed navigation system (Overview, Equipment, Dashboard, Scenarios) providing seamless user experience. Built Shadcn-style tabs component following 'new-york' design patterns for consistent UI framework integration.\n\nEstablished clean component architecture with organized index files for equipment and demo components, enabling maintainable imports and proper separation of concerns. Updated AppShell navigation to include Enhanced Demo page with Zap icon and proper routing integration.\n\nImplemented centralized state management system coordinating real-time data flow between DemoEnhancementPanel metrics updates and live dashboard displays. Scenario activation properly propagates state changes across all components, updating system metrics and visual indicators in real-time.\n\nDeployed application-wide EnhancedTooltipProvider with configurable visibility controls, providing contextual help throughout the entire demo system. Integrated comprehensive keyboard shortcut system with help mode overlay for enhanced accessibility.\n\nOptimized performance through efficient useState patterns preventing unnecessary re-renders, Framer Motion animations with proper AnimatePresence for smooth tab transitions, and tab-based lazy loading for improved initial page performance.\n\nEnhanced mobile responsiveness with adaptive tab navigation (full text on desktop, abbreviated on mobile), touch-friendly controls, responsive metrics grids (2 columns mobile, 6 desktop), and mobile-optimized card layouts with proper spacing.\n\nMaintained accessibility compliance with full keyboard navigation support, proper ARIA labels, semantic HTML structure, focus management, and high contrast ratios across all chart color combinations.\n\nEstablished consistent chart color theming using chart-1 through chart-5 variables across all components, proper status indicators for equipment and maintenance priorities, and unified visual hierarchy maintaining brand consistency.\n\nImplemented comprehensive demo instructions with getting started guide, keyboard shortcut documentation, interactive help system, and progressive information disclosure preventing cognitive overload while showcasing full system capabilities.\n</info added on 2025-08-28T06:38:33.392Z>",
-            "status": "done",
-            "testStrategy": "End-to-end integration testing, performance optimization validation, complete mobile responsiveness testing, and system-wide functionality verification."
-          }
-        ]
+        "dependencies": [
+          15
+        ],
+        "status": "pending",
+        "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-08-28T03:57:01.813Z",
-      "updated": "2025-08-28T06:38:42.283Z",
+      "updated": "2025-08-29T02:04:10.511Z",
       "description": "Tasks for master context"
     }
   }

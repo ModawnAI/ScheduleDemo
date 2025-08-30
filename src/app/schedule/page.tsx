@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import AppShell from "@/components/AppShell";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -274,8 +273,7 @@ export default function SchedulePage() {
   }, [weekDates]);
 
   return (
-    <AppShell>
-      <div className="w-full bg-background text-foreground">
+    <div className="w-full bg-background text-foreground">
         <div className="w-full p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="w-full max-w-7xl mx-auto space-y-4 md:space-y-6 lg:space-y-8">
             
@@ -634,6 +632,5 @@ export default function SchedulePage() {
           </div>
         </div>
       </div>
-    </AppShell>
   );
 }

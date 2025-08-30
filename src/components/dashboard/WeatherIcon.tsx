@@ -49,6 +49,10 @@ const WeatherIcons = {
   snow: Snowflake,
   wind: Wind,
   heat: Sun,
+  fire: Sun,
+  air_quality: Wind,
+  frost: Snowflake,
+  flood: CloudRain,
   
   // Condition types
   sunny: Sun,

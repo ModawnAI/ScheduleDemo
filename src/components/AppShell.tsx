@@ -1,193 +1,190 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Calendar, MapPin, Users, Menu, X, Leaf, Zap, Route, CalendarDays } from 'lucide-react';
-
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { useAppMode } from '@/contexts/AppModeContext';
+import { 
+  Home, 
+  Building2, 
+  Settings, 
+  Bell,
+  Menu,
+  X,
+  Calendar,
+  Users,
+  Route,
+  Zap
+} from 'lucide-react';
 
 interface AppShellProps {
   children: React.ReactNode;
 }
 
-const AppShell: React.FC<AppShellProps> = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+// Navigation items for different modes
+const simpleNavigation = [
+  { name: 'Work Orders', href: '/', icon: Home, badge: '12' },
+  { name: 'Schedule Generator', href: '/schedule', icon: Calendar, badge: 'New' },
+];
 
-  const navigation = [
-    {
-      name: 'Strategic Calendar',
-      href: '/calendar',
-      icon: Calendar,
-      description: 'Yearly and monthly view of all scheduled services'
-    },
-    {
-      name: 'Daily Dashboard',
-      href: '/dashboard',
-      icon: MapPin,
-      description: 'Mission control for daily route optimization'
-    },
-    {
-      name: 'Crew Management',
-      href: '/crews',
-      icon: Users,
-      description: 'Manage crew assignments and schedules'
-    },
-    {
-      name: 'Crew Schedule',
-      href: '/schedule',
-      icon: CalendarDays,
-      description: 'Weekly schedule view for crew leaders and teams'
-    },
-    {
-      name: 'Route Optimization',
-      href: '/routes',
-      icon: Route,
-      description: 'AI-powered route optimization with real-time tracking'
-    },
-    {
-      name: 'Enhanced Demo',
-      href: '/demo',
-      icon: Zap,
-      description: 'Real-time updates and interactive scenarios'
-    }
-  ];
+const advancedNavigation = [
+  { name: 'Work Orders', href: '/', icon: Home, badge: '12' },
+  { name: 'Dashboard', href: '/dashboard', icon: Building2 },
+  { name: 'Schedule Generator', href: '/schedule', icon: Calendar, badge: 'New' },
+  { name: 'Calendar View', href: '/calendar', icon: Calendar },
+  { name: 'Crews', href: '/crews', icon: Users },
+  { name: 'Routes', href: '/routes', icon: Route },
+  { name: 'Demo Features', href: '/demo', icon: Zap, badge: 'Enhanced' },
+];
+
+export default function AppShell({ children }: AppShellProps) {
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const { mode, setMode } = useAppMode();
+  
+  // Get navigation items based on current mode
+  const navigation = mode === 'simple' ? simpleNavigation : advancedNavigation;
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Mobile sidebar overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+    <div className="min-h-screen bg-background">
+      {/* Mobile menu button */}
+      <div className="lg:hidden">
+        <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex items-center space-x-3">
+            <h1 className="text-xl font-semibold">Schedule Demo</h1>
+            <Badge variant={mode === 'advanced' ? 'default' : 'secondary'} className="text-xs">
+              {mode === 'advanced' ? 'Pro' : 'Basic'}
+            </Badge>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+      </div>
 
-      {/* Sidebar */}
-      <div className={cn(
-        "fixed inset-y-0 left-0 z-50 w-64 transform bg-sidebar border-r border-sidebar-border transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:inset-0",
-        sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      )}>
-        <div className="flex h-full flex-col">
-          {/* Sidebar Header */}
-          <div className="flex h-16 items-center justify-between px-6 border-b border-sidebar-border">
-            <div className="flex items-center space-x-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary">
-                <Leaf className="h-5 w-5 text-sidebar-primary-foreground" />
-              </div>
-              <div>
-                <h1 className="text-lg font-semibold text-sidebar-foreground">
-                  CPM AI
-                </h1>
-                <p className="text-xs text-sidebar-foreground/60">
-                  Schedule Demo
-                </p>
+      <div className="lg:flex">
+        {/* Sidebar */}
+        <div className={cn(
+          "lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0",
+          mobileMenuOpen ? "block" : "hidden lg:block"
+        )}>
+          <div className="flex flex-col flex-grow bg-card border-r overflow-y-auto">
+            <div className="flex flex-col flex-shrink-0 px-4 py-6 space-y-4">
+              <h1 className="text-xl font-bold text-foreground">Schedule Demo</h1>
+              
+              {/* Simple/Advanced Mode Toggle */}
+              <div className="flex flex-col space-y-2 p-3 bg-accent/50 rounded-lg">
+                <div className="flex items-center space-x-2">
+                  <Label htmlFor="mode-toggle" className="text-sm font-medium">
+                    {mode === 'simple' ? 'Simple' : 'Advanced'}
+                  </Label>
+                  <Switch
+                    id="mode-toggle"
+                    checked={mode === 'advanced'}
+                    onCheckedChange={(checked) => setMode(checked ? 'advanced' : 'simple')}
+                  />
+                  <Badge variant={mode === 'advanced' ? 'default' : 'secondary'} className="text-xs">
+                    {mode === 'advanced' ? 'Pro' : 'Basic'}
+                  </Badge>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {navigation.length} menu item{navigation.length !== 1 ? 's' : ''} available
+                </div>
               </div>
             </div>
             
-            {/* Mobile close button */}
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="md:hidden p-2 rounded-md hover:bg-sidebar-accent text-sidebar-foreground"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
+            <nav className="flex-1 px-2 pb-4 space-y-1">
+              {navigation.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={cn(
+                      "group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    )}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <item.icon
+                      className={cn(
+                        "mr-3 h-5 w-5 flex-shrink-0",
+                        isActive ? "text-primary-foreground" : "text-muted-foreground"
+                      )}
+                    />
+                    {item.name}
+                    {item.badge && (
+                      <Badge 
+                        variant={isActive ? "secondary" : "outline"} 
+                        className={cn(
+                          "ml-auto text-xs",
+                          isActive ? "bg-primary-foreground/20 text-primary-foreground" : ""
+                        )}
+                      >
+                        {item.badge}
+                      </Badge>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
 
-          {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-2">
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="group flex items-center px-3 py-3 text-sm font-medium rounded-lg text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors duration-200"
-                >
-                  <Icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                  <div className="flex-1">
-                    <div className="font-medium">{item.name}</div>
-                    <div className="text-xs text-sidebar-foreground/60 group-hover:text-sidebar-accent-foreground/80">
-                      {item.description}
-                    </div>
+            <div className="flex-shrink-0 p-4 border-t">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+                    <span className="text-sm font-medium text-primary-foreground">GM</span>
                   </div>
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Sidebar Footer */}
-          <div className="border-t border-sidebar-border p-4">
-            <div className="flex items-center space-x-3">
-              <div className="h-8 w-8 rounded-full bg-sidebar-primary flex items-center justify-center">
-                <span className="text-sm font-medium text-sidebar-primary-foreground">
-                  DM
-                </span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-sidebar-foreground truncate">
-                  Dave Miller
-                </p>
-                <p className="text-xs text-sidebar-foreground/60 truncate">
-                  Operations Manager
-                </p>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-foreground">Green Manager</p>
+                  <p className="text-xs text-muted-foreground">Operations Lead</p>
+                </div>
+                <Button variant="ghost" size="sm" className="ml-auto">
+                  <Settings className="h-4 w-4" />
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Main content area */}
-      <div className="flex flex-1 flex-col w-full">
-        {/* Header */}
-        <header className="flex h-16 items-center justify-between border-b border-border bg-card px-4 md:px-6 shadow-sm">
-          <div className="flex items-center space-x-2 md:space-x-4 min-w-0">
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="md:hidden p-2 rounded-md hover:bg-accent text-foreground flex-shrink-0"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
-            
-            <div className="min-w-0">
-              <h2 className="text-lg md:text-xl font-semibold text-foreground truncate">
-                Mission Control Dashboard
-              </h2>
-              <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">
-                Optimize your crew schedules and routes
-              </p>
-            </div>
-          </div>
-
-          {/* Header actions */}
-          <div className="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
-            <div className="hidden lg:flex items-center space-x-2 text-sm text-muted-foreground">
-              <div className="h-2 w-2 rounded-full bg-primary animate-pulse"></div>
-              <span>System Active</span>
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <div className="text-right hidden md:block">
-                <p className="text-sm font-medium text-foreground">Dave Miller</p>
-                <p className="text-xs text-muted-foreground">Operations Manager</p>
-              </div>
-              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                <span className="text-sm font-medium text-primary-foreground">
-                  DM
-                </span>
-              </div>
-            </div>
-          </div>
-        </header>
 
         {/* Main content */}
-        <main className="flex-1 bg-background">
-          <div className="min-h-full w-full">
-            {children}
+        <div className="lg:pl-64 flex flex-col flex-1">
+          {/* Top bar */}
+          <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-background border-b">
+            <div className="flex-1 px-4 flex justify-between items-center">
+              <div className="flex-1" />
+              <div className="ml-4 flex items-center md:ml-6">
+                <Button variant="ghost" size="sm" className="relative">
+                  <Bell className="h-5 w-5" />
+                  <Badge 
+                    variant="destructive" 
+                    className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
+                  >
+                    2
+                  </Badge>
+                </Button>
+              </div>
+            </div>
           </div>
-        </main>
+
+          {/* Page content */}
+          <main className="flex-1">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );
-};
-
-export default AppShell;
+}

@@ -1,5 +1,6 @@
 // Weather API utilities with TypeScript and CSS variable integration
 import { WeatherAlert, WeatherForecast } from '@/types';
+import { mockWeatherForecasts } from '@/data/mockData';
 
 /**
  * Weather severity levels with corresponding chart color classes
@@ -7,7 +8,8 @@ import { WeatherAlert, WeatherForecast } from '@/types';
 export const WEATHER_SEVERITY_COLORS = {
   low: 'text-chart-2 bg-chart-2/10 border-chart-2/20',
   medium: 'text-chart-3 bg-chart-3/10 border-chart-3/20', 
-  high: 'text-chart-5 bg-chart-5/10 border-chart-5/20'
+  high: 'text-chart-5 bg-chart-5/10 border-chart-5/20',
+  critical: 'text-red-700 bg-red-100 border-red-300'
 } as const;
 
 /**
@@ -41,90 +43,44 @@ export const WEATHER_TYPE_CONFIG = {
     bgColor: 'bg-chart-1/10',
     borderColor: 'border-chart-1/20',
     description: 'Extreme heat may require schedule adjustments'
+  },
+  fire: {
+    icon: 'Sun',
+    color: 'text-red-600',
+    bgColor: 'bg-red-50',
+    borderColor: 'border-red-200',
+    description: 'Fire danger - restrict spark-producing equipment'
+  },
+  air_quality: {
+    icon: 'Wind',
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-50',
+    borderColor: 'border-orange-200',
+    description: 'Poor air quality may affect sensitive crew members'
+  },
+  frost: {
+    icon: 'Snowflake',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
+    borderColor: 'border-blue-200',
+    description: 'Frost conditions may damage sensitive plants'
+  },
+  flood: {
+    icon: 'CloudRain',
+    color: 'text-blue-800',
+    bgColor: 'bg-blue-100',
+    borderColor: 'border-blue-300',
+    description: 'Flooding may prevent access to job sites'
   }
 } as const;
 
 /**
- * Mock weather data for different dates and conditions
+ * Convert mockWeatherForecasts array to lookup object for compatibility
  */
-const MOCK_WEATHER_DATA: Record<string, WeatherForecast> = {
-  '2024-09-16': {
-    date: '2024-09-16',
-    alerts: [
-      {
-        type: 'rain',
-        severity: 'medium',
-        startTime: '14:00',
-        endTime: '18:00',
-        description: 'Moderate rain expected from 2 PM to 6 PM. Outdoor work may be affected.'
-      },
-      {
-        type: 'wind',
-        severity: 'low',
-        startTime: '10:00',
-        endTime: '16:00',
-        description: 'Light winds 10-15 mph. Monitor equipment stability.'
-      }
-    ],
-    temperature: { high: 78, low: 62 },
-    conditions: 'Partly Cloudy, Rain Later'
-  },
-  '2024-09-17': {
-    date: '2024-09-17',
-    alerts: [],
-    temperature: { high: 82, low: 65 },
-    conditions: 'Sunny'
-  },
-  '2024-09-18': {
-    date: '2024-09-18',
-    alerts: [
-      {
-        type: 'heat',
-        severity: 'high',
-        startTime: '11:00',
-        endTime: '17:00',
-        description: 'Excessive heat warning. Temperature may reach 95°F. Consider early start times.'
-      }
-    ],
-    temperature: { high: 95, low: 72 },
-    conditions: 'Hot and Sunny'
-  },
-  '2024-09-19': {
-    date: '2024-09-19',
-    alerts: [
-      {
-        type: 'snow',
-        severity: 'medium',
-        startTime: '06:00',
-        endTime: '12:00',
-        description: 'Light snow accumulation expected. Roads may be slippery.'
-      }
-    ],
-    temperature: { high: 35, low: 28 },
-    conditions: 'Snow Showers'
-  },
-  '2024-09-20': {
-    date: '2024-09-20',
-    alerts: [
-      {
-        type: 'wind',
-        severity: 'high',
-        startTime: '08:00',
-        endTime: '20:00',
-        description: 'High wind advisory. Gusts up to 40 mph. Avoid tree work and tall equipment.'
-      },
-      {
-        type: 'rain',
-        severity: 'low',
-        startTime: '16:00',
-        endTime: '19:00',
-        description: 'Light rain showers possible in the evening.'
-      }
-    ],
-    temperature: { high: 68, low: 55 },
-    conditions: 'Windy with Scattered Showers'
-  }
-};
+const MOCK_WEATHER_DATA: Record<string, WeatherForecast> = mockWeatherForecasts.reduce((acc, forecast) => {
+  acc[forecast.date] = forecast;
+  return acc;
+}, {} as Record<string, WeatherForecast>);
 
 /**
  * Mock Weather API - simulates real weather service
@@ -272,10 +228,30 @@ export function assessWeatherImpact(
         recommendations.push('Schedule frequent breaks');
         recommendations.push('Ensure adequate hydration');
         recommendations.push('Consider earlier start times');
+        recommendations.push('Implement heat safety protocols');
         break;
       case 'snow':
         recommendations.push('Check road conditions');
         recommendations.push('Allow extra travel time');
+        break;
+      case 'fire':
+        recommendations.push('No spark-producing equipment during peak hours');
+        recommendations.push('Have fire extinguishers readily available');
+        recommendations.push('Monitor local fire restrictions');
+        break;
+      case 'air_quality':
+        recommendations.push('Limit prolonged outdoor exertion');
+        recommendations.push('Provide masks for sensitive crew members');
+        recommendations.push('Monitor air quality index');
+        break;
+      case 'frost':
+        recommendations.push('Protect sensitive plants');
+        recommendations.push('Delay irrigation until temperatures rise');
+        break;
+      case 'flood':
+        recommendations.push('Avoid low-lying areas');
+        recommendations.push('Check road accessibility');
+        recommendations.push('Postpone work in affected areas');
         break;
     }
   });
@@ -359,8 +335,8 @@ function timeToMinutes(time: string): number {
  * @returns Priority number (higher = more important)
  */
 export function getWeatherAlertPriority(alert: WeatherAlert): number {
-  const severityWeight = { low: 1, medium: 2, high: 3 }[alert.severity];
-  const typeWeight = { wind: 4, snow: 3, rain: 2, heat: 1 }[alert.type];
+  const severityWeight = { low: 1, medium: 2, high: 3, critical: 4 }[alert.severity];
+  const typeWeight = { wind: 4, snow: 3, rain: 2, heat: 1, fire: 5, air_quality: 2, frost: 2, flood: 4 }[alert.type] || 1;
   return severityWeight * 10 + typeWeight;
 }
 

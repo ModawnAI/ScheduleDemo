@@ -8,7 +8,22 @@ export type ServiceType =
   | "Hedge Trimming" 
   | "Leaf Removal" 
   | "Irrigation Check" 
-  | "Mulch Installation";
+  | "Mulch Installation"
+  | "Tree Pruning"
+  | "Plant Installation"
+  | "Hardscape Installation"
+  | "Seasonal Color Change"
+  | "Pest Control Treatment"
+  | "Soil Amendment"
+  | "Aeration & Overseeding"
+  | "Holiday Lighting"
+  | "Snow Removal"
+  | "Irrigation Repair"
+  | "Landscape Design"
+  | "Sod Installation"
+  | "Drainage Solutions"
+  | "Retaining Wall"
+  | "Patio Installation";
 
 export interface Service {
   serviceType: ServiceType;
@@ -25,14 +40,22 @@ export interface Contract {
 export interface CrewMember {
   id: string;
   name: string;
-  role: string; // e.g., "Lead", "Assistant", "Equipment Operator"
+  role: string; // e.g., "Crew Lead", "Landscape Specialist", "Equipment Operator"
+  certifications?: string[]; // Professional certifications
+  yearsExperience?: number; // Years in landscaping industry
+  specialties?: string[]; // Specific skill areas
 }
 
 export interface Crew {
   id: string;
   name: string;
-  specialization: string; // e.g., "Mowing", "Landscaping", "Tree Service"
+  specialization: string; // e.g., "Weekly Lawn Care & Maintenance", "Installation & Hardscaping"
   members: CrewMember[];
+  equipment?: string[]; // Primary equipment used by this crew
+  serviceRadius?: number; // Miles from base location
+  avgJobsPerDay?: number; // Average jobs completed per day
+  efficiency?: number; // Performance rating (0-100)
+  certifications?: string[]; // Team-level certifications
 }
 
 export interface JobTicket {
@@ -72,11 +95,12 @@ export interface DailySchedule {
 
 // Weather-related types
 export interface WeatherAlert {
-  type: "rain" | "snow" | "wind" | "heat";
-  severity: "low" | "medium" | "high";
+  type: "rain" | "snow" | "wind" | "heat" | "fire" | "air_quality" | "frost" | "flood";
+  severity: "low" | "medium" | "high" | "critical";
   startTime: string; // e.g., "14:00"
   endTime: string; // e.g., "18:00"
   description: string;
+  impact?: string; // Optional impact on landscaping operations
 }
 
 export interface WeatherForecast {
@@ -87,6 +111,11 @@ export interface WeatherForecast {
     low: number;
   };
   conditions: string; // e.g., "Partly Cloudy", "Rain"
+  humidity?: number; // Percentage
+  windSpeed?: number; // MPH
+  uvIndex?: number; // 0-11 scale
+  precipitation?: number; // Inches
+  soilMoisture?: "dry" | "normal" | "wet"; // For irrigation decisions
 }
 
 // UI State types

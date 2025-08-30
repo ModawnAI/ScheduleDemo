@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import AppShell from "@/components/AppShell";
 import DailyDashboard from "@/components/dashboard/DailyDashboard";
 import DragDropDashboard from "@/components/dashboard/DragDropDashboard";
 import { 
@@ -20,8 +19,7 @@ export default function DashboardPage() {
   const [isDragDropMode, setIsDragDropMode] = useState(false);
 
   return (
-    <AppShell>
-      <div className="w-full bg-background text-foreground">
+    <div className="w-full bg-background text-foreground">
         <div className="w-full p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="w-full max-w-7xl mx-auto space-y-4 md:space-y-6 lg:space-y-8">
             
@@ -77,6 +75,5 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-    </AppShell>
   );
 }

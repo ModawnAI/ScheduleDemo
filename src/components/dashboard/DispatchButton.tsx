@@ -97,7 +97,11 @@ const DispatchButton: React.FC<DispatchButtonProps> = ({
     rain: CloudRain,
     snow: Snowflake,
     wind: Wind,
-    heat: Sun
+    heat: Sun,
+    fire: Sun,
+    air_quality: Wind,
+    frost: Snowflake,
+    flood: CloudRain
   };
 
   // Handle dispatch action

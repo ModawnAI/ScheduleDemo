@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Map, { Marker, Popup, Source, Layer, MapRef } from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import AppShell from "@/components/AppShell";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -787,8 +786,7 @@ export default function RoutesPage() {
   }, [selectedRoute]);
 
   return (
-    <AppShell>
-      <div className="w-full bg-background text-foreground">
+    <div className="w-full bg-background text-foreground">
         <div className="w-full p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="w-full max-w-7xl mx-auto space-y-4 md:space-y-6 lg:space-y-8">
             
@@ -1614,6 +1612,5 @@ export default function RoutesPage() {
           </div>
         </div>
       </div>
-    </AppShell>
   );
 }

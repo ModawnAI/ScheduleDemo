@@ -169,7 +169,34 @@ const StrategicCalendar: React.FC<StrategicCalendarProps> = ({ className = "" })
       'Monthly Cleanup': 'bg-secondary text-secondary-foreground', // Light green for cleanup
       'Leaf Removal': 'bg-accent text-accent-foreground', // Accent green for seasonal
       'Hedge Trimming': 'bg-chart-4 text-primary-foreground', // Dark green for precision work
-      'Mulch Installation': 'bg-chart-5 text-primary-foreground' // Darkest green for installation
+      'Mulch Installation': 'bg-chart-5 text-primary-foreground', // Darkest green for installation
+      
+      // Tree and Plant services
+      'Tree Pruning': 'bg-green-700 text-white',
+      'Plant Installation': 'bg-green-600 text-white',
+      
+      // Hardscape services
+      'Hardscape Installation': 'bg-stone-600 text-white',
+      'Patio Installation': 'bg-stone-700 text-white',
+      'Retaining Wall': 'bg-stone-800 text-white',
+      
+      // Seasonal and specialty services
+      'Seasonal Color Change': 'bg-orange-500 text-white',
+      'Holiday Lighting': 'bg-yellow-600 text-white',
+      'Snow Removal': 'bg-blue-600 text-white',
+      
+      // Treatment services
+      'Pest Control Treatment': 'bg-red-600 text-white',
+      'Soil Amendment': 'bg-amber-700 text-white',
+      'Aeration & Overseeding': 'bg-lime-600 text-white',
+      
+      // Repair and maintenance
+      'Irrigation Repair': 'bg-blue-700 text-white',
+      'Drainage Solutions': 'bg-cyan-700 text-white',
+      
+      // Design services
+      'Landscape Design': 'bg-purple-600 text-white',
+      'Sod Installation': 'bg-emerald-600 text-white'
     };
     return colorMap[serviceType] || 'bg-muted text-muted-foreground';
   };
@@ -184,7 +211,22 @@ const StrategicCalendar: React.FC<StrategicCalendarProps> = ({ className = "" })
       'Monthly Cleanup': 'bg-secondary',
       'Leaf Removal': 'bg-accent',
       'Hedge Trimming': 'bg-chart-4',
-      'Mulch Installation': 'bg-chart-5'
+      'Mulch Installation': 'bg-chart-5',
+      'Tree Pruning': 'bg-green-700',
+      'Plant Installation': 'bg-green-600',
+      'Hardscape Installation': 'bg-stone-600',
+      'Patio Installation': 'bg-stone-700',
+      'Retaining Wall': 'bg-stone-800',
+      'Seasonal Color Change': 'bg-orange-500',
+      'Holiday Lighting': 'bg-yellow-600',
+      'Snow Removal': 'bg-blue-600',
+      'Pest Control Treatment': 'bg-red-600',
+      'Soil Amendment': 'bg-amber-700',
+      'Aeration & Overseeding': 'bg-lime-600',
+      'Irrigation Repair': 'bg-blue-700',
+      'Drainage Solutions': 'bg-cyan-700',
+      'Landscape Design': 'bg-purple-600',
+      'Sod Installation': 'bg-emerald-600'
     };
     return colorMap[serviceType] || 'bg-muted';
   };
